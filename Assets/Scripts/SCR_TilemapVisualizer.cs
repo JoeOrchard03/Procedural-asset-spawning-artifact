@@ -14,10 +14,10 @@ using UnityEngine.Tilemaps;
 public class SCR_TilemapVisualizer : MonoBehaviour
 {
     [SerializeField]
-    private Tilemap floorTilemap;
+    private Tilemap floorTilemap, wallTilemap;
 
     [SerializeField]
-    private TileBase floorTile;
+    private TileBase floorTile, wallTop;
 
     //Uses IEnumerable as a variable to store generic collections
     public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions)
@@ -42,5 +42,11 @@ public class SCR_TilemapVisualizer : MonoBehaviour
     public void Clear()
     {
         floorTilemap.ClearAllTiles();
+        wallTilemap.ClearAllTiles();
+    }
+
+    internal void PaintSingleBasicWall(Vector2Int position)
+    {
+        paintSingleTile(wallTilemap, wallTop, position);
     }
 }

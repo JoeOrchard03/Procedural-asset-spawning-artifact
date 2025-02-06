@@ -27,6 +27,7 @@ public class SCR_RandomWalkDungeonGenerator : SCR_AbstractDungeonGen
         tilemapVisualizer.Clear();
         //paints all the tiles in floor positions to visualise them
         tilemapVisualizer.PaintFloorTiles(floorPositions);
+        SCR_WallGen.CreateWalls(floorPositions, tilemapVisualizer);
     }
 
     protected HashSet<Vector2Int> RunRandomWalk()
