@@ -12,7 +12,7 @@
 
 ### Plan moving forward:
 
-- Watch through teams viva to add more to proposal feedback section
 - Implement the tutorial mentioned in proposal for rough prototype with a focus on navigating with mouse and keyboard before implementing A* pathfinding
+- Implement quality assurance (unit tests)
 - Implement A* pathfinding
 - Plan again after this is done
