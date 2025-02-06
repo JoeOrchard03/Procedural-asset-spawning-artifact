@@ -24,13 +24,19 @@ public class SCR_RandomWalkDungeonGenerator : MonoBehaviour
     [SerializeField]
     public bool startRandomlyEachIteration = true;
 
+    [SerializeField]
+    private SCR_TilemapVisualizer tilemapVisualizer;
+
     /// <summary>
     /// Runs the random walk algorithm for the amount of times set in Iterations and then prints out all the positions that the combined random walk algorithms generate
     /// </summary>
     public void runProcGen()
     {
         HashSet<Vector2Int> floorPositions = RunRandomWalk();
-        foreach (var position in floorPositions) { Debug.Log(position); }
+        //Clear tilemap
+        tilemapVisualizer.Clear();
+        //paints all the tiles in floor positions to visualise them
+        tilemapVisualizer.PaintFloorTiles(floorPositions);
     }
 
     protected HashSet<Vector2Int> RunRandomWalk()
