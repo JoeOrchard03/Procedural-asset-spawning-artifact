@@ -12,11 +12,8 @@ using Random = UnityEngine.Random;
 *    Availability: https://www.youtube.com/watch?v=LnbZLnCXSyI
 ***************************************************************************************/
 
-public class SCR_RandomWalkDungeonGenerator : MonoBehaviour
+public class SCR_RandomWalkDungeonGenerator : SCR_AbstractDungeonGen
 {
-    // Start is called before the first frame update
-    [SerializeField] protected Vector2Int startPosition = Vector2Int.zero;
-
     [SerializeField]
     private int Iterations = 10;
     [SerializeField]
@@ -24,13 +21,10 @@ public class SCR_RandomWalkDungeonGenerator : MonoBehaviour
     [SerializeField]
     public bool startRandomlyEachIteration = true;
 
-    [SerializeField]
-    private SCR_TilemapVisualizer tilemapVisualizer;
-
     /// <summary>
     /// Runs the random walk algorithm for the amount of times set in Iterations and then prints out all the positions that the combined random walk algorithms generate
     /// </summary>
-    public void runProcGen()
+    protected override void RunProcGen()
     {
         HashSet<Vector2Int> floorPositions = RunRandomWalk();
         //Clear tilemap
@@ -41,7 +35,7 @@ public class SCR_RandomWalkDungeonGenerator : MonoBehaviour
 
     protected HashSet<Vector2Int> RunRandomWalk()
     {
-        var currentPos = startPosition;
+        var currentPos = startPos;
         HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
         for (int i = 0; i < Iterations; i++)
         {
