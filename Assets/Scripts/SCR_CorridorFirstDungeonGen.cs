@@ -33,10 +33,47 @@ public class SCR_CorridorFirstDungeonGen : SCR_RandomWalkDungeonGenerator
 
         HashSet<Vector2Int> roomPositions = CreateRooms(potentialRoomPositions);
 
+        List<Vector2Int> deadEnds = findAllDeadEnds(floorPositions);
+
+        CreateRoomsAtDeadEnds(deadEnds, roomPositions);
+        
         floorPositions.UnionWith(roomPositions);
 
         tilemapVisualizer.PaintFloorTiles(floorPositions);
         SCR_WallGen.CreateWalls(floorPositions, tilemapVisualizer);
+    }
+
+    private void CreateRoomsAtDeadEnds(List<Vector2Int> deadEnds, HashSet<Vector2Int> roomFloors)
+    {
+        foreach(var position in deadEnds)
+        {
+            if(roomFloors.Contains(position) == false)
+            {
+                var room = RunRandomWalk(randomWalkParameters, position);
+                roomFloors.UnionWith(room);
+            }
+        }
+    }
+
+    private List<Vector2Int> findAllDeadEnds(HashSet<Vector2Int> floorPositions)
+    {
+        List<Vector2Int> deadEnds = new List<Vector2Int>();
+        foreach(var position in floorPositions)
+        {
+            int neighboursCount = 0;
+            foreach (var direction in Direction2D.directionsList)
+            {
+                if (floorPositions.Contains(position + direction))
+                {
+                    neighboursCount++;
+                }
+            }
+            if(neighboursCount == 1)
+            {
+                deadEnds.Add(position);
+            }
+        }
+        return deadEnds;
     }
 
     private HashSet<Vector2Int> CreateRooms(HashSet<Vector2Int> potentialRoomPositions)
