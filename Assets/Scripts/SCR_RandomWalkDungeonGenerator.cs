@@ -15,14 +15,14 @@ using Random = UnityEngine.Random;
 public class SCR_RandomWalkDungeonGenerator : SCR_AbstractDungeonGen
 {
     [SerializeField]
-    private SCR_RandomWalkSO randomWalkParameters;
+    protected SCR_RandomWalkSO randomWalkParameters;
 
     /// <summary>
     /// Runs the random walk algorithm for the amount of times set in Iterations and then prints out all the positions that the combined random walk algorithms generate
     /// </summary>
     protected override void RunProcGen()
     {
-        HashSet<Vector2Int> floorPositions = RunRandomWalk(randomWalkParameters);
+        HashSet<Vector2Int> floorPositions = RunRandomWalk(randomWalkParameters, startPos);
         //Clear tilemap
         tilemapVisualizer.Clear();
         //paints all the tiles in floor positions to visualise them
@@ -30,9 +30,9 @@ public class SCR_RandomWalkDungeonGenerator : SCR_AbstractDungeonGen
         SCR_WallGen.CreateWalls(floorPositions, tilemapVisualizer);
     }
 
-    protected HashSet<Vector2Int> RunRandomWalk(SCR_RandomWalkSO parameters)
+    protected HashSet<Vector2Int> RunRandomWalk(SCR_RandomWalkSO parameters, Vector2Int position)
     {
-        var currentPos = startPos;
+        var currentPos = position;
         HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
         for (int i = 0; i < parameters.iterations; i++)
         {
