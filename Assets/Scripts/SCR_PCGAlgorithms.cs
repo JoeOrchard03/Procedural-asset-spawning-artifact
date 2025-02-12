@@ -11,7 +11,7 @@ using UnityEngine;
 
 public static class SCR_PCGAlgorithms
 {
-    //Random walk algorithm is stored as a hash set as hash sets store unique values
+    //Random walk for creating rooms algorithm is stored as a hash set as hash sets store unique values
     public static HashSet<Vector2Int> RandomWalk(Vector2Int StartPos, int walkLength)
     {
         HashSet<Vector2Int> returnData = new HashSet<Vector2Int>();
@@ -28,6 +28,22 @@ public static class SCR_PCGAlgorithms
             previousPos = newPosition;
         }
         return returnData;
+    }
+
+    //Random walk algorithm for creating corridors - using List to access positions in order so can start the next corridor from the previous one's end point
+    public static List<Vector2Int> RandomWalkCorridor(Vector2Int startPosition, int corridorLength)
+    {
+        List<Vector2Int> corridor = new List<Vector2Int>();
+        var direction = Direction2D.GetRandomDirection();
+        var currentPos = startPosition;
+        //Store the starting position
+        corridor.Add(currentPos);
+        for (int i = 0; i< corridorLength;i++)
+        {
+            currentPos += direction;
+            corridor.Add(currentPos);
+        }
+        return corridor;
     }
 }
 
