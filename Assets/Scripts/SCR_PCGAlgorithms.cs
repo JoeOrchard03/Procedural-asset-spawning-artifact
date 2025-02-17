@@ -46,28 +46,38 @@ public static class SCR_PCGAlgorithms
         return corridor;
     }
 
+    //Splits space up randomly into rectangular rooms
     public static List<BoundsInt> BinarySpacePartitioning(BoundsInt spaceToSpilt, int minWidth, int minHeight)
     {
+        //Queue is like an array or list, used to store objects
         Queue<BoundsInt> roomsQueue = new Queue<BoundsInt>();
         List<BoundsInt> roomsList = new List<BoundsInt>();
+        //Enque adds an item to the back of the queue
         roomsQueue.Enqueue(spaceToSpilt);
+        //While there are items in the queue
         while(roomsQueue.Count > 0)
         {
+            //Get ready to handle a room by taking it from the front of the queue
             var room = roomsQueue.Dequeue();
+            //If rooms are big enough to be split
             if(room.size.y >= minHeight && room.size.x >= minWidth)
             {
+                //Random is used to randomise whether they are to be checked whether it can be split horizontally or vertically first
                 if(Random.value < 0.5f)
                 {
+                    //If the room can fit another two rooms under the minimum height limit
                     if(room.size.y >= minHeight*2)
                     {
                         SplitHorizontally(minWidth, roomsQueue, room);
                     }
+                    //If the room can fit another two rooms under the minimum width limit
                     else if (room.size.x >= minWidth * 2)
                     {
                         SplitVertically(minHeight, roomsQueue, room);
                     }
                     else
                     {
+                        //If it cant be split add it to the list of rooms
                         roomsList.Add(room);
                     }
                 }
@@ -83,6 +93,7 @@ public static class SCR_PCGAlgorithms
                     }
                     else
                     {
+                        //If it cant be split add it to the list of rooms
                         roomsList.Add(room);
                     }
                 }
@@ -93,8 +104,11 @@ public static class SCR_PCGAlgorithms
 
     private static void SplitHorizontally(int minWidth, Queue<BoundsInt> roomsQueue, BoundsInt room)
     {
+        //Defines where to split the room in a random range from the beginning of the room to it's max size
         var ySplit = Random.Range(1, room.size.y);
+        //First room origin starts at the bottom left of the room and goes up to its x value and stops at where it is split on the y axis
         BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(room.size.x, ySplit, room.size.z));
+        //Second room origin starts at the bottom left of the first room by adding ySplit to the room.min, ySplit is taken from room.size.y so it captures the remaining space
         BoundsInt room2 = new BoundsInt(new Vector3Int(room.min.x, room.min.y + ySplit, room.min.z), new Vector3Int(room.size.x, room.size.y - ySplit, room.size.z));
         roomsQueue.Enqueue(room1);
         roomsQueue.Enqueue(room2);
@@ -102,8 +116,11 @@ public static class SCR_PCGAlgorithms
 
     private static void SplitVertically(int minWidth, Queue<BoundsInt> roomsQueue, BoundsInt room)
     {
+        //Defines where to split the room in a random range from the beginning of the room to it's max size
         var xSplit = Random.Range(1, room.size.x);
+        //First room origin starts at the bottom left of the room and goes up to its y value and stops at where it is split on the x axis
         BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(xSplit, room.min.y, room.min.z));
+        //Second room origin starts at the bottom left of the first room by adding xSplit to the room.min, xSplit is taken from room.size.x so it captures the remaining space
         BoundsInt room2 = new BoundsInt(new Vector3Int(room.min.x + xSplit, room.min.y, room.min.z), new Vector3Int(room.size.x - xSplit, room.size.y, room.size.z));
         roomsQueue.Enqueue(room1);
         roomsQueue.Enqueue(room2);
