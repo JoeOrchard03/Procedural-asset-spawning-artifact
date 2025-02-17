@@ -119,7 +119,7 @@ public static class SCR_PCGAlgorithms
         //Defines where to split the room in a random range from the beginning of the room to it's max size
         var xSplit = Random.Range(1, room.size.x);
         //First room origin starts at the bottom left of the room and goes up to its y value and stops at where it is split on the x axis
-        BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(xSplit, room.min.y, room.min.z));
+        BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(xSplit, room.size.y, room.size.z));
         //Second room origin starts at the bottom left of the first room by adding xSplit to the room.min, xSplit is taken from room.size.x so it captures the remaining space
         BoundsInt room2 = new BoundsInt(new Vector3Int(room.min.x + xSplit, room.min.y, room.min.z), new Vector3Int(room.size.x - xSplit, room.size.y, room.size.z));
         roomsQueue.Enqueue(room1);
