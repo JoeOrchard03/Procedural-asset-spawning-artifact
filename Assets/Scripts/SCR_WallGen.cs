@@ -3,11 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/***************************************************************************************
+*    Title: Placing Basic Walls - P9 - Unity Procedural Generation of a 2D Dungeon
+*    Author: Sunny Valley Studio - Peter https://www.youtube.com/@SunnyValleyStudio
+*    Date: 19/12/2020
+*    Availability youtube tutorial link: https://www.youtube.com/watch?v=LdpItlRg8OM&list=PLcRSafycjWFenI87z7uZHFv6cUG2Tzu9v&index=10
+*    Availability git link: https://github.com/SunnyValleyStudio/Unity_2D_Procedural_Dungoen_Tutorial/blob/main/_Scripts/WallGenerator.cs
+***************************************************************************************/
+
 public static class SCR_WallGen
 {
     public static void CreateWalls(HashSet<Vector2Int> floorPositions, SCR_TilemapVisualizer tilemapVisualizer)
     {
-        var basicWallPositions = FindWallsInDirections(floorPositions, Direction2D.directionsList);
+        var basicWallPositions = FindWallsInDirections(floorPositions, Direction2D.cardinalDirectionsList);
         foreach (var position in basicWallPositions)
         {
             tilemapVisualizer.PaintSingleBasicWall(position);

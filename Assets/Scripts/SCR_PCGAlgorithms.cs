@@ -6,7 +6,8 @@ using UnityEngine;
 *    Title: Random Walk Algorithm - P4 - Unity Procedural Generation of a 2D Dungeon
 *    Author: Sunny Valley Studio - Peter https://www.youtube.com/@SunnyValleyStudio
 *    Date: 18/12/2020
-*    Availability: https://www.youtube.com/watch?v=F_Zc1nvtB0o&list=PLcRSafycjWFenI87z7uZHFv6cUG2Tzu9v&index=4
+*    Availability youtube tutorial link: https://www.youtube.com/watch?v=F_Zc1nvtB0o&list=PLcRSafycjWFenI87z7uZHFv6cUG2Tzu9v&index=4
+*    Availaibility git link: https://github.com/SunnyValleyStudio/Unity_2D_Procedural_Dungoen_Tutorial/blob/main/_Scripts/ProceduralGenerationAlgorithms.cs
 ***************************************************************************************/
 
 public static class SCR_PCGAlgorithms
@@ -131,7 +132,7 @@ public static class SCR_PCGAlgorithms
 public static class Direction2D
 {
     //Cardinal directions
-    public static List<Vector2Int> directionsList = new List<Vector2Int>()
+    public static List<Vector2Int> cardinalDirectionsList = new List<Vector2Int>()
     {
         new Vector2Int(0, 1), //UP
         new Vector2Int(1, 0), //RIGHT
@@ -139,8 +140,28 @@ public static class Direction2D
         new Vector2Int(-1, 0) //LEFT
     };
 
+    public static List<Vector2Int> diagonalDirectionsList = new List<Vector2Int>()
+    {
+        new Vector2Int(1, 1), //UP-RIGHT
+        new Vector2Int(1, -1), //RIGHT-DOWN
+        new Vector2Int(-1, -1), //DOWN-LEFT
+        new Vector2Int(-1, 1) //LEFT-UP
+    };
+
+    public static List<Vector2Int> eightDirectionsList = new List<Vector2Int>()
+    {
+        new Vector2Int(0, 1), //UP
+        new Vector2Int(1, 1), //UP-RIGHT
+        new Vector2Int(1, 0), //RIGHT
+        new Vector2Int(1, -1), //RIGHT-DOWN
+        new Vector2Int(0, -1), //DOWN
+        new Vector2Int(-1, -1), //DOWN-LEFT
+        new Vector2Int(-1, 0), //LEFT
+        new Vector2Int(-1, 1) //LEFT-UP
+    };
+
     public static Vector2Int GetRandomDirection()
     {
-        return directionsList[Random.Range(0, directionsList.Count)];
+        return cardinalDirectionsList[Random.Range(0, cardinalDirectionsList.Count)];
     }
 }

@@ -8,7 +8,8 @@ using UnityEngine.Tilemaps;
 *    Title: Adding Floor Tiles - P6 - Unity Procedural Generation of a 2D Dungeon
 *    Author: Sunny Valley Studio - Peter https://www.youtube.com/@SunnyValleyStudio
 *    Date: 18/12/2020
-*    Availability: https://www.youtube.com/watch?v=W6cBwk0bRWE
+*    Availability youtube tutorial link: https://www.youtube.com/watch?v=W6cBwk0bRWE
+*    Availability git link: https://github.com/SunnyValleyStudio/Unity_2D_Procedural_Dungoen_Tutorial/blob/main/_Scripts/TilemapVisualizer.cs
 ***************************************************************************************/
 
 public class SCR_TilemapVisualizer : MonoBehaviour

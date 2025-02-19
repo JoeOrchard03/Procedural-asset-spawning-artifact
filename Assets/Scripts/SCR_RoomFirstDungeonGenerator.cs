@@ -9,7 +9,8 @@ using Random = UnityEngine.Random;
 *    Title: Room First Generation - P15 - Unity Procedural Generation of a 2D Dungeon
 *    Author: Sunny Valley Studio - Peter https://www.youtube.com/@SunnyValleyStudio
 *    Date: 19/12/2020
-*    Availability: https://www.youtube.com/watch?v=pWZg1oChtnc&list=PLcRSafycjWFenI87z7uZHFv6cUG2Tzu9v&index=16
+*    Availability youtube tutorial link: https://www.youtube.com/watch?v=pWZg1oChtnc&list=PLcRSafycjWFenI87z7uZHFv6cUG2Tzu9v&index=16
+*    Availability git link: https://github.com/SunnyValleyStudio/Unity_2D_Procedural_Dungoen_Tutorial/blob/main/_Scripts/RoomFirstDungeonGenerator.cs
 ***************************************************************************************/
 
 public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator

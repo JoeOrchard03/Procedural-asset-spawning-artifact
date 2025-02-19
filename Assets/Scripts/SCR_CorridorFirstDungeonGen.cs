@@ -7,7 +7,8 @@ using UnityEngine;
 *    Title: Corridors First Algorithm - P10 - Unity Procedural Generation of a 2D Dungeon
 *    Author: Sunny Valley Studio - Peter https://www.youtube.com/@SunnyValleyStudio
 *    Date: 19/12/2020
-*    Availability: https://www.youtube.com/watch?v=fsMDWutpo8g&list=PLcRSafycjWFenI87z7uZHFv6cUG2Tzu9v&index=10
+*    Availability youtube tutorial link: https://www.youtube.com/watch?v=fsMDWutpo8g&list=PLcRSafycjWFenI87z7uZHFv6cUG2Tzu9v&index=10
+*    Availability git link: https://github.com/SunnyValleyStudio/Unity_2D_Procedural_Dungoen_Tutorial/blob/main/_Scripts/CorridorFirstDungeonGenerator.cs
 ***************************************************************************************/
 
 public class SCR_CorridorFirstDungeonGen : SCR_RandomWalkDungeonGenerator
@@ -122,7 +123,7 @@ public class SCR_CorridorFirstDungeonGen : SCR_RandomWalkDungeonGenerator
         foreach(var position in floorPositions)
         {
             int neighboursCount = 0;
-            foreach (var direction in Direction2D.directionsList)
+            foreach (var direction in Direction2D.cardinalDirectionsList)
             {
                 if (floorPositions.Contains(position + direction))
                 {
