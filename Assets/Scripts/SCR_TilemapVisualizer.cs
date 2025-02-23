@@ -18,7 +18,8 @@ public class SCR_TilemapVisualizer : MonoBehaviour
     private Tilemap floorTilemap, wallTilemap;
 
     [SerializeField]
-    private TileBase floorTile, wallTop, wallSideRight, wallSideLeft, WallBottom, wallFull;
+    private TileBase floorTile, wallTop, wallSideRight, wallSideLeft, WallBottom, wallFull, wallInnerCornerDownLeft, wallInnerCornerDownRight,
+        wallDiagonalCornerDownLeft, wallDiagonalCornerUpRight, wallDiagonalCornerUpLeft, wallDiagonalCornerDownRight;
 
     //Uses IEnumerable as a variable to store generic collections
     public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions)
@@ -50,6 +51,7 @@ public class SCR_TilemapVisualizer : MonoBehaviour
     {
         int typeAsInt = Convert.ToInt32(binaryType, 2);
         TileBase tile = null;
+        //Looks through wall types data script hashsets that contain the binary for each wall piece, if it matches it paints a wall of that type
         if (SRC_WallTypesData.wallTop.Contains(typeAsInt))
         {
             tile = wallTop;
@@ -76,8 +78,45 @@ public class SCR_TilemapVisualizer : MonoBehaviour
         }
     }
 
-    internal void PaintSingleCornerWall(Vector2Int position, string neighboursBinaryType)
+    internal void PaintSingleCornerWall(Vector2Int position, string binaryType)
     {
-        
+        int typeAsInt = Convert.ToInt32(binaryType, 2);
+        TileBase tile = null;
+        if(SRC_WallTypesData.wallInnerCornerDownLeft.Contains(typeAsInt))
+        {
+            tile = wallInnerCornerDownLeft;
+        }
+        else if (SRC_WallTypesData.wallInnerCornerDownRight.Contains(typeAsInt))
+        {
+            tile = wallInnerCornerDownRight;
+        }
+        else if (SRC_WallTypesData.wallDiagonalCornerDownLeft.Contains(typeAsInt))
+        {
+            tile = wallDiagonalCornerDownLeft;
+        }
+        else if (SRC_WallTypesData.wallDiagonalCornerDownRight.Contains(typeAsInt))
+        {
+            tile = wallDiagonalCornerDownRight;
+        }
+        else if (SRC_WallTypesData.wallDiagonalCornerUpRight.Contains(typeAsInt))
+        {
+            tile = wallDiagonalCornerUpRight;
+        }
+        else if (SRC_WallTypesData.wallDiagonalCornerUpLeft.Contains(typeAsInt))
+        {
+            tile = wallDiagonalCornerUpLeft;
+        }
+        else if (SRC_WallTypesData.wallFullEightDirections.Contains(typeAsInt))
+        {
+            tile = wallFull;
+        }
+        else if (SRC_WallTypesData.wallBottmEightDirections.Contains(typeAsInt))
+        {
+            tile = WallBottom;
+        }
+        if (tile != null)
+        {
+            paintSingleTile(wallTilemap, tile, position);
+        }
     }
 }
