@@ -18,7 +18,7 @@ public class SCR_TilemapVisualizer : MonoBehaviour
     private Tilemap floorTilemap, wallTilemap;
 
     [SerializeField]
-    private TileBase floorTile, wallTop;
+    private TileBase floorTile, wallTop, wallSideRight, wallSideLeft, WallBottom, wallFull;
 
     //Uses IEnumerable as a variable to store generic collections
     public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions)
@@ -48,11 +48,36 @@ public class SCR_TilemapVisualizer : MonoBehaviour
 
     internal void PaintSingleBasicWall(Vector2Int position, string binaryType)
     {
-        paintSingleTile(wallTilemap, wallTop, position);
+        int typeAsInt = Convert.ToInt32(binaryType, 2);
+        TileBase tile = null;
+        if (SRC_WallTypesData.wallTop.Contains(typeAsInt))
+        {
+            tile = wallTop;
+        }
+        else if (SRC_WallTypesData.wallSideRight.Contains(typeAsInt))
+        {
+            tile = wallSideRight;
+        }
+        else if (SRC_WallTypesData.wallSideLeft.Contains(typeAsInt))
+        {
+            tile = wallSideLeft;
+        }
+        else if (SRC_WallTypesData.wallBottom.Contains(typeAsInt))
+        {
+            tile = WallBottom;
+        }
+        else if (SRC_WallTypesData.wallFull.Contains(typeAsInt))
+        {
+            tile = wallFull;
+        }
+        if (tile != null)
+        {
+            paintSingleTile(wallTilemap, tile, position);
+        }
     }
 
     internal void PaintSingleCornerWall(Vector2Int position, string neighboursBinaryType)
     {
-        throw new NotImplementedException();
+        
     }
 }
