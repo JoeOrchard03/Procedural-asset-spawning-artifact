@@ -46,8 +46,13 @@ public class SCR_TilemapVisualizer : MonoBehaviour
         wallTilemap.ClearAllTiles();
     }
 
-    internal void PaintSingleBasicWall(Vector2Int position)
+    internal void PaintSingleBasicWall(Vector2Int position, string binaryType)
     {
         paintSingleTile(wallTilemap, wallTop, position);
+    }
+
+    internal void PaintSingleCornerWall(Vector2Int position, string neighboursBinaryType)
+    {
+        throw new NotImplementedException();
     }
 }

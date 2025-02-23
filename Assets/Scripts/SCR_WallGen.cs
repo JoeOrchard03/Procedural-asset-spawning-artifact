@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 /***************************************************************************************
@@ -16,11 +17,55 @@ public static class SCR_WallGen
     public static void CreateWalls(HashSet<Vector2Int> floorPositions, SCR_TilemapVisualizer tilemapVisualizer)
     {
         var basicWallPositions = FindWallsInDirections(floorPositions, Direction2D.cardinalDirectionsList);
+        var cornerWallPositions = FindWallsInDirections(floorPositions, Direction2D.diagonalDirectionsList);
+        CreateBasicWalls(tilemapVisualizer, basicWallPositions, floorPositions);
+        CreateCornerWalls(tilemapVisualizer, cornerWallPositions, floorPositions);
+    }
+
+    private static void CreateCornerWalls(SCR_TilemapVisualizer tilemapVisualizer, HashSet<Vector2Int> cornerWallPositions, HashSet<Vector2Int> floorPositions)
+    {
+        foreach(var position in cornerWallPositions)
+        {
+            string neighboursBinaryType = "";
+            foreach (var direction in Direction2D.eightDirectionsList)
+            {
+                var neighbourPosition = position + direction;
+                if (floorPositions.Contains(neighbourPosition))
+                {
+                    //if there is a floor in the position being checked add a 1 to mark it
+                    neighboursBinaryType += "1";
+                }
+                else
+                {
+                    //if there is not a floor in the position being checked add a 0 to mark it
+                    neighboursBinaryType += "0";
+                }
+            }
+            tilemapVisualizer.PaintSingleCornerWall(position, neighboursBinaryType);
+        }
+    }
+
+    private static void CreateBasicWalls(SCR_TilemapVisualizer tilemapVisualizer, HashSet<Vector2Int> basicWallPositions, HashSet<Vector2Int> floorPositions)
+    {
         foreach (var position in basicWallPositions)
         {
-            tilemapVisualizer.PaintSingleBasicWall(position);
+            string neighboursBinaryType = "";
+            foreach(var direction in Direction2D.cardinalDirectionsList)
+            {
+                var neighbourPosition = position + direction;
+                if(floorPositions.Contains(neighbourPosition))
+                {
+                    //if there is a floor in the position being checked add a 1 to mark it
+                    neighboursBinaryType += "1";
+                }
+                else
+                {
+                    //if there is not a floor in the position being checked add a 0 to mark it
+                    neighboursBinaryType += "0";
+                }
+            }
+            tilemapVisualizer.PaintSingleBasicWall(position, neighboursBinaryType);
         }
-
     }
 
     private static HashSet<Vector2Int> FindWallsInDirections(HashSet<Vector2Int> floorPositions, List<Vector2Int> directionsList)
