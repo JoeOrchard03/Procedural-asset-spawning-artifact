@@ -57,7 +57,14 @@ public class TEST_CorridorFirstDungeonGen
         HashSet<Vector2Int> potentialRoomPositions = new HashSet<Vector2Int>();
         List<List<Vector2Int>> corridors = scriptTestInstance.CreateCorridors(floorPositions, potentialRoomPositions);
 
-        
+        var previousCorridor = corridors[0];
+        for (int i = 1; i < corridors.Count; i++)
+        {
+            var corridor = corridors[i];
+            Assert.IsTrue(corridor[0] == previousCorridor[previousCorridor.Count -1]);
+            previousCorridor = corridor;
+        }
+
         yield return null;
     }
 }
