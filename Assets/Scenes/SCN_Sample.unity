@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 84559707}
   m_Layer: 0
   m_Name: CorridorFirstGen
-  m_TagString: Untagged
+  m_TagString: CorridorFirstGenerator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -167,6 +167,7 @@ MonoBehaviour:
   startPos: {x: 0, y: 0}
   randomWalkParameters: {fileID: 11400000, guid: 5ce7a28859691904ea07ba5c226ed791,
     type: 2}
+  DefaultRandomWalkParameters: {fileID: 0}
   corridorLength: 25
   corridorCount: 10
   roomPercent: 0.5
@@ -305,6 +306,7 @@ MonoBehaviour:
   startPos: {x: 0, y: 0}
   randomWalkParameters: {fileID: 11400000, guid: 9e322621c176add418efac6d7044cd78,
     type: 2}
+  DefaultRandomWalkParameters: {fileID: 0}
   minRoomWidth: 10
   minRoomHeight: 10
   dungeonWidth: 70
@@ -558,6 +560,8 @@ MonoBehaviour:
   tilemapVisualizer: {fileID: 1907896821}
   startPos: {x: 0, y: 0}
   randomWalkParameters: {fileID: 11400000, guid: 5ce7a28859691904ea07ba5c226ed791,
+    type: 2}
+  DefaultRandomWalkParameters: {fileID: 11400000, guid: 6dec671a33e3de944a065fc211399a14,
     type: 2}
 --- !u!1 &1295406147
 GameObject:
