@@ -14,17 +14,6 @@ public class TEST_CorridorFirstDungeonGen
     public void SetUp()
     {
         scriptTestInstance = new GameObject().AddComponent<SCR_CorridorFirstDungeonGen>();
-        GetRandomWalkParams();
-    }
-
-    private SCR_RandomWalkSO GetRandomWalkParams()
-    {
-        SCR_RandomWalkSO parameters = new SCR_RandomWalkSO();
-        parameters.iterations = 100;
-        parameters.walkLength = 100;
-        parameters.startRandomlyEachIteration = true;
-
-        return parameters;
     }
 
     [UnityTest]
@@ -62,9 +51,13 @@ public class TEST_CorridorFirstDungeonGen
     }
 
     [UnityTest]
-    public IEnumerator RoomGenerationPercentage_Test()
+    public IEnumerator CorridorContainsLastCorridorEndTile_Test()
     {
-       
+        HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
+        HashSet<Vector2Int> potentialRoomPositions = new HashSet<Vector2Int>();
+        List<List<Vector2Int>> corridors = scriptTestInstance.CreateCorridors(floorPositions, potentialRoomPositions);
+
+        
         yield return null;
     }
 }

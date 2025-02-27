@@ -34,7 +34,7 @@ public class SCR_CorridorFirstDungeonGen : SCR_RandomWalkDungeonGenerator
 
         HashSet<Vector2Int> roomPositions = CreateRooms(potentialRoomPositions);
 
-        List<Vector2Int> deadEnds = findAllDeadEnds(floorPositions);
+        List<Vector2Int> deadEnds = FindAllDeadEnds(floorPositions);
 
         CreateRoomsAtDeadEnds(deadEnds, roomPositions);
         
@@ -117,7 +117,7 @@ public class SCR_CorridorFirstDungeonGen : SCR_RandomWalkDungeonGenerator
         }
     }
 
-    public List<Vector2Int> findAllDeadEnds(HashSet<Vector2Int> floorPositions)
+    public List<Vector2Int> FindAllDeadEnds(HashSet<Vector2Int> floorPositions)
     {
         List<Vector2Int> deadEnds = new List<Vector2Int>();
         foreach(var position in floorPositions)
