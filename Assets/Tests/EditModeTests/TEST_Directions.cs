@@ -4,7 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-public class DirectionTests
+public class TEST_Directions
 {
     // A Test behaves as an ordinary method
     [Test]
