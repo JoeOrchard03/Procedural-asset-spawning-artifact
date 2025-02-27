@@ -14,11 +14,11 @@ using UnityEngine;
 public class SCR_CorridorFirstDungeonGen : SCR_RandomWalkDungeonGenerator
 {
     [SerializeField]
-    private int corridorLength = 14, corridorCount = 5;
+    public int corridorLength = 14, corridorCount = 5;
     [SerializeField]
     [Range(0.1f,1)]
     [Tooltip("How likely a room is to branch off from a piece of corridor")]
-    private float roomPercent = 0.8f;
+    public float roomPercent = 0.8f;
 
     protected override void RunProcGen()
     {
@@ -117,7 +117,7 @@ public class SCR_CorridorFirstDungeonGen : SCR_RandomWalkDungeonGenerator
         }
     }
 
-    private List<Vector2Int> findAllDeadEnds(HashSet<Vector2Int> floorPositions)
+    public List<Vector2Int> findAllDeadEnds(HashSet<Vector2Int> floorPositions)
     {
         List<Vector2Int> deadEnds = new List<Vector2Int>();
         foreach(var position in floorPositions)
@@ -138,8 +138,9 @@ public class SCR_CorridorFirstDungeonGen : SCR_RandomWalkDungeonGenerator
         return deadEnds;
     }
 
-    private HashSet<Vector2Int> CreateRooms(HashSet<Vector2Int> potentialRoomPositions)
+    public HashSet<Vector2Int> CreateRooms(HashSet<Vector2Int> potentialRoomPositions)
     {
+        if (potentialRoomPositions == null) { Debug.Log("potential room positions null"); return new HashSet<Vector2Int>(); }
         HashSet<Vector2Int> roomPositions = new HashSet<Vector2Int>();
         //Gets the count of rooms that are to be generated
         int roomToCreateCount = Mathf.RoundToInt(potentialRoomPositions.Count * roomPercent);
@@ -156,7 +157,7 @@ public class SCR_CorridorFirstDungeonGen : SCR_RandomWalkDungeonGenerator
         return roomPositions;
     }
 
-    private List<List<Vector2Int>> CreateCorridors(HashSet<Vector2Int> floorPositions, HashSet<Vector2Int> potentialRoomPositions)
+    public List<List<Vector2Int>> CreateCorridors(HashSet<Vector2Int> floorPositions, HashSet<Vector2Int> potentialRoomPositions)
     {
         var currentPosition = startPos;
         potentialRoomPositions.Add(currentPosition);

@@ -169,7 +169,7 @@ MonoBehaviour:
     type: 2}
   corridorLength: 25
   corridorCount: 10
-  roomPercent: 0.546
+  roomPercent: 0.5
 --- !u!1 &91473202
 GameObject:
   m_ObjectHideFlags: 0

@@ -31,7 +31,7 @@ public class SCR_RandomWalkDungeonGenerator : SCR_AbstractDungeonGen
         SCR_WallGen.CreateWalls(floorPositions, tilemapVisualizer);
     }
 
-    protected HashSet<Vector2Int> RunRandomWalk(SCR_RandomWalkSO parameters, Vector2Int position)
+    public HashSet<Vector2Int> RunRandomWalk(SCR_RandomWalkSO parameters, Vector2Int position)
     {
         var currentPos = position;
         HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
