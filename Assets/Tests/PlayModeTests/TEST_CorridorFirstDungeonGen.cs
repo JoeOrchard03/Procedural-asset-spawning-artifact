@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using NUnit.Framework;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.TestTools;
+using static UnityEngine.Analytics.IAnalytic;
 
 public class TEST_CorridorFirstDungeonGen
 {
