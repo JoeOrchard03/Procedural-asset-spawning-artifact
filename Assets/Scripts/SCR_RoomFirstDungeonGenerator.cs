@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
+using static UnityEditor.ShaderData;
 using Random = UnityEngine.Random;
 
 /***************************************************************************************
@@ -34,6 +36,9 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
     [SerializeField]
     private GameObject startDoor, endDoor, playerAgent;
 
+    [SerializeField]
+    private GameObject possiblePathPrefab;
+
     protected override void RunProcGen()
     {
         CreateRooms();
@@ -42,12 +47,12 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
     public void CreateRooms()
     {
         //Run the binary space partitioning algorithm to generate the list of rooms
-        var roomsList = SCR_PCGAlgorithms.BinarySpacePartitioning(new BoundsInt((Vector3Int)startPos, 
+        var roomsList = SCR_PCGAlgorithms.BinarySpacePartitioning(new BoundsInt((Vector3Int)startPos,
             new Vector3Int(dungeonWidth, dungeonHeight, 0)), minRoomWidth, minRoomHeight);
 
         HashSet<Vector2Int> floor = new HashSet<Vector2Int>();
 
-        if(randomWalkRooms)
+        if (randomWalkRooms)
         {
             floor = CreateRoomsRandomly(roomsList);
         }
@@ -69,11 +74,28 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
         floor.UnionWith(corridors);
         tilemapVisualizer.PaintFloorTiles(floor);
         SCR_WallGen.CreateWalls(floor, tilemapVisualizer);
+        GetPossiblePaths(floor);
+    }
+
+    private void GetPossiblePaths(HashSet<Vector2Int> floor)
+    {
         var possiblePaths = SCR_WallGen.FindAgentPathInDirections(floor, Direction2D.cardinalDirectionsList, Vector3ToVector2Int(playerAgent.transform.position));
-        foreach(var possiblePath in possiblePaths)
+        GameObject objToDelete = GameObject.FindGameObjectWithTag("PathPrefabParent");
+        DestroyImmediate(objToDelete);  
+        GameObject possiblePathObjParentObj = new GameObject();
+        possiblePathObjParentObj.tag = "PathPrefabParent";
+        foreach (var possiblePath in possiblePaths)
         {
             Debug.Log("Possible path found: " + possiblePath);
+            GameObject possiblePathObj = Instantiate(possiblePathPrefab, Vector2IntToVector3(possiblePath), Quaternion.identity);
+            possiblePathObj.transform.SetParent(possiblePathObjParentObj.transform);
         }
+        
+    }
+
+    protected override void PathFindingAgentStep()
+    {
+        Debug.Log("AGENT STEPPING");
     }
 
     private Vector2Int Vector3ToVector2Int(Vector3 vectorToConvert)
@@ -82,6 +104,12 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
         int roundedY = (int)Math.Round(vectorToConvert.y);
         var converetedVector = new Vector2Int(roundedX, roundedY);
         return converetedVector;
+    }
+
+    private Vector3 Vector2IntToVector3(Vector2Int vectorToConvert)
+    {
+        var convertedVector = new Vector3(vectorToConvert.x, vectorToConvert.y, 0);
+        return convertedVector;
     }
 
     private HashSet<Vector2Int> CreateRoomsRandomly(List<BoundsInt> roomsList)
@@ -203,11 +231,7 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
             }
         }
         Vector3Int SmallesRoomCentreRoundedToInt = Vector3Int.RoundToInt(smallestRoomCentre);
-        Debug.Log("Lowest value is: " + SmallesRoomCentreRoundedToInt);
         startDoor.transform.position = SmallesRoomCentreRoundedToInt;
-        float cornerTileOffsetX = startDoor.transform.position.x + 0.5f;
-        float cornerTileOffsetY = startDoor.transform.position.y + 0.5f;
-        startDoor.transform.position = new Vector3(cornerTileOffsetX, cornerTileOffsetY, 0);
         playerAgent.transform.position = startDoor.transform.position;
     }
 
@@ -222,11 +246,6 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
             }
         }
         Vector3Int LargestRoomCentreRoundedToInt = Vector3Int.RoundToInt(largestRoomCentre);
-        Debug.Log("Highest value is: " + LargestRoomCentreRoundedToInt);
         endDoor.transform.position = LargestRoomCentreRoundedToInt;
-        float cornerTileOffsetX = endDoor.transform.position.x + 0.5f;
-        float cornerTileOffsetY = endDoor.transform.position.y + 0.5f;
-        endDoor.transform.position = new Vector3(cornerTileOffsetX, cornerTileOffsetY, 0);
     }
-
 }

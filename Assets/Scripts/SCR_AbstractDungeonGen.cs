@@ -23,6 +23,13 @@ public abstract class SCR_AbstractDungeonGen : MonoBehaviour
         RunProcGen();
     }
 
+    public void AgentStep()
+    {
+        PathFindingAgentStep();
+    }
+
     protected abstract void RunProcGen();
+
+    protected abstract void PathFindingAgentStep();
 
 }

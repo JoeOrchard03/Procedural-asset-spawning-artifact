@@ -15,7 +15,7 @@ using UnityEngine.Tilemaps;
 public class SCR_TilemapVisualizer : MonoBehaviour
 {
     [SerializeField]
-    private Tilemap floorTilemap, wallTilemap;
+    public Tilemap floorTilemap, wallTilemap;
 
     [SerializeField]
     private TileBase floorTile, wallTop, wallSideRight, wallSideLeft, WallBottom, wallFull, wallInnerCornerDownLeft, wallInnerCornerDownRight,
@@ -35,7 +35,7 @@ public class SCR_TilemapVisualizer : MonoBehaviour
         }
     }
 
-    private void paintSingleTile(Tilemap tilemap, TileBase tile, Vector2Int position)
+    public void paintSingleTile(Tilemap tilemap, TileBase tile, Vector2Int position)
     {
         var tilePosition = tilemap.WorldToCell((Vector3Int)position);
         tilemap.SetTile(tilePosition, tile);
