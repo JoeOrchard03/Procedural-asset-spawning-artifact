@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
@@ -29,6 +30,9 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
     [SerializeField]
     [Tooltip("Whether you want to use random walk to help generate the rooms")]
     public bool randomWalkRooms = false;
+
+    [SerializeField]
+    private GameObject startDoor, endDoor;
 
     protected override void RunProcGen()
     {
@@ -59,6 +63,8 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
             roomCenters.Add((Vector2Int)Vector3Int.RoundToInt(room.center));
         }
 
+        FindBottomLeftRoom(roomsList);
+        FindTopRightRoom(roomsList);
         HashSet<Vector2Int> corridors = ConnectRooms(roomCenters);
         floor.UnionWith(corridors);
         tilemapVisualizer.PaintFloorTiles(floor);
@@ -172,4 +178,41 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
         }
         return floor;
     }
+
+    private void FindBottomLeftRoom(List<BoundsInt> roomsList)
+    {
+        Vector3 smallestRoomCentre = new Vector3(int.MaxValue, int.MaxValue, 0);
+        foreach (var room in roomsList)
+        {
+            if (room.center.magnitude <= smallestRoomCentre.magnitude)
+            {
+                smallestRoomCentre = room.center;
+            }
+        }
+        Vector3Int SmallesRoomCentreRoundedToInt = Vector3Int.RoundToInt(smallestRoomCentre);
+        Debug.Log("Lowest value is: " + SmallesRoomCentreRoundedToInt);
+        startDoor.transform.position = SmallesRoomCentreRoundedToInt;
+        float cornerTileOffsetX = startDoor.transform.position.x + 0.5f;
+        float cornerTileOffsetY = startDoor.transform.position.y + 0.5f;
+        startDoor.transform.position = new Vector3(cornerTileOffsetX, cornerTileOffsetY, 0);
+    }
+
+    private void FindTopRightRoom(List<BoundsInt> roomsList)
+    {
+        Vector3 largestRoomCentre = new Vector3(0, 0, 0);
+        foreach (var room in roomsList)
+        {
+            if (room.center.magnitude >= largestRoomCentre.magnitude)
+            {
+                largestRoomCentre = room.center;
+            }
+        }
+        Vector3Int LargestRoomCentreRoundedToInt = Vector3Int.RoundToInt(largestRoomCentre);
+        Debug.Log("Highest value is: " + LargestRoomCentreRoundedToInt);
+        endDoor.transform.position = LargestRoomCentreRoundedToInt;
+        float cornerTileOffsetX = endDoor.transform.position.x + 0.5f;
+        float cornerTileOffsetY = endDoor.transform.position.y + 0.5f;
+        endDoor.transform.position = new Vector3(cornerTileOffsetX, cornerTileOffsetY, 0);
+    }
+
 }
