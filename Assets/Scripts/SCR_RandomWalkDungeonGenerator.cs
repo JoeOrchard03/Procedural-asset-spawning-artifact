@@ -16,7 +16,7 @@ using Random = UnityEngine.Random;
 public class SCR_RandomWalkDungeonGenerator : SCR_AbstractDungeonGen
 {
     [SerializeField]
-    protected SCR_RandomWalkSO randomWalkParameters;
+    public SCR_RandomWalkSO randomWalkParameters;
 
     /// <summary>
     /// Runs the random walk algorithm for the amount of times set in Iterations and then prints out all the positions that the combined random walk algorithms generate

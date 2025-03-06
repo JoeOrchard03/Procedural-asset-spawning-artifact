@@ -23,7 +23,7 @@ public class TEST_RandomWalkDungeonGenerator
     public IEnumerator RunRandomWalkReturnsValid_Test()
     {
         var TestResult = scriptTestInstance.RunRandomWalk(randomWalkParamsToTest, new Vector2Int(0,0));
-        Assert.NotNull(TestResult);
+        Assert.NotNull(TestResult, "Run random walk returning null");
         yield return null;
     }
 }

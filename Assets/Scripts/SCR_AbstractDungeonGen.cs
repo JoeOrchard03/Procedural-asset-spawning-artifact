@@ -13,7 +13,7 @@ using UnityEngine;
 public abstract class SCR_AbstractDungeonGen : MonoBehaviour
 {
     [SerializeField]
-    protected SCR_TilemapVisualizer tilemapVisualizer = null;
+    public SCR_TilemapVisualizer tilemapVisualizer = null;
     [SerializeField]
     protected Vector2Int startPos = Vector2Int.zero;
 

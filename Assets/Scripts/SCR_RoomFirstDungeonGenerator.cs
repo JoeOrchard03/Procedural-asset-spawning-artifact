@@ -28,14 +28,14 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
 
     [SerializeField]
     [Tooltip("Whether you want to use random walk to help generate the rooms")]
-    private bool randomWalkRooms = false;
+    public bool randomWalkRooms = false;
 
     protected override void RunProcGen()
     {
         CreateRooms();
     }
 
-    private void CreateRooms()
+    public void CreateRooms()
     {
         //Run the binary space partitioning algorithm to generate the list of rooms
         var roomsList = SCR_PCGAlgorithms.BinarySpacePartitioning(new BoundsInt((Vector3Int)startPos, 
@@ -61,7 +61,6 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
 
         HashSet<Vector2Int> corridors = ConnectRooms(roomCenters);
         floor.UnionWith(corridors);
-
         tilemapVisualizer.PaintFloorTiles(floor);
         SCR_WallGen.CreateWalls(floor, tilemapVisualizer);
     }
