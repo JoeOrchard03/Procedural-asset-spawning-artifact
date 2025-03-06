@@ -88,4 +88,22 @@ public static class SCR_WallGen
         }
         return wallPositions;
     }
+
+    public static HashSet<Vector2Int> FindAgentPathInDirections(HashSet<Vector2Int> floorPositions, List<Vector2Int> directionsList, Vector2Int playerPosition)
+    {
+        HashSet<Vector2Int> floorPositons = new HashSet<Vector2Int>();
+        //Iterates through every piece of floor in floor positions
+        //Checks each direction
+        foreach (var direction in directionsList)
+        {
+            //Adds direction to each floor piece
+            var neighbourPosition = playerPosition + direction;
+            //If the result is not in floor positions it means it is outside the map so a wall should be placed in that direction
+            if (floorPositions.Contains(neighbourPosition) == true)
+            {
+                floorPositions.Add(neighbourPosition);
+            }
+        }
+        return floorPositions;
+    }
 }

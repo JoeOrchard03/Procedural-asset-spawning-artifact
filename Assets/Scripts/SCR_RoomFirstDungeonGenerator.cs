@@ -32,7 +32,7 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
     public bool randomWalkRooms = false;
 
     [SerializeField]
-    private GameObject startDoor, endDoor;
+    private GameObject startDoor, endDoor, playerAgent;
 
     protected override void RunProcGen()
     {
@@ -69,6 +69,19 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
         floor.UnionWith(corridors);
         tilemapVisualizer.PaintFloorTiles(floor);
         SCR_WallGen.CreateWalls(floor, tilemapVisualizer);
+        var possiblePaths = SCR_WallGen.FindAgentPathInDirections(floor, Direction2D.cardinalDirectionsList, Vector3ToVector2Int(playerAgent.transform.position));
+        foreach(var possiblePath in possiblePaths)
+        {
+            Debug.Log("Possible path found: " + possiblePath);
+        }
+    }
+
+    private Vector2Int Vector3ToVector2Int(Vector3 vectorToConvert)
+    {
+        int roundedX = (int)Math.Round(vectorToConvert.x);
+        int roundedY = (int)Math.Round(vectorToConvert.y);
+        var converetedVector = new Vector2Int(roundedX, roundedY);
+        return converetedVector;
     }
 
     private HashSet<Vector2Int> CreateRoomsRandomly(List<BoundsInt> roomsList)
@@ -195,6 +208,7 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
         float cornerTileOffsetX = startDoor.transform.position.x + 0.5f;
         float cornerTileOffsetY = startDoor.transform.position.y + 0.5f;
         startDoor.transform.position = new Vector3(cornerTileOffsetX, cornerTileOffsetY, 0);
+        playerAgent.transform.position = startDoor.transform.position;
     }
 
     private void FindTopRightRoom(List<BoundsInt> roomsList)
