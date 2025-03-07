@@ -75,6 +75,7 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
         tilemapVisualizer.PaintFloorTiles(floor);
         SCR_WallGen.CreateWalls(floor, tilemapVisualizer);
         GetPossiblePaths(floor);
+        playerAgent.GetComponent<SCR_PlayerAgent>().StartToEndGoalDistance();
     }
 
     private void GetPossiblePaths(HashSet<Vector2Int> floor)

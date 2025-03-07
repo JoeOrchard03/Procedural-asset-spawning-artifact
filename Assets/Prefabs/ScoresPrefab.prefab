@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1232500634103822788}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: PathPrefab
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 5586786400216847672}
   m_Layer: 0
   m_Name: PossiblePathTile
-  m_TagString: PathPrefab
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 4796387457517136827}
   m_Layer: 5
   m_Name: Text (TMP) (2)
-  m_TagString: PathPrefab
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 5094328820238879653}
   m_Layer: 5
   m_Name: Text (TMP) (1)
-  m_TagString: PathPrefab
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -476,7 +476,7 @@ GameObject:
   - component: {fileID: 8128406613302371459}
   m_Layer: 5
   m_Name: Text (TMP)
-  m_TagString: PathPrefab
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -608,6 +608,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4011515672695513080}
+  - component: {fileID: 8264851921715233957}
   m_Layer: 0
   m_Name: ScoresPrefab
   m_TagString: PathPrefab
@@ -632,3 +633,24 @@ Transform:
   - {fileID: 4941338330560341495}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8264851921715233957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9073307744813285623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93e3fbfcd9d97e643bb5239956e67669, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerReference: {fileID: 0}
+  GScore: 0
+  HScore: 0
+  FScore: 0
+  StartNodePositon: {x: 0, y: 0, z: 0}
+  EndGoalPosition: {x: 0, y: 0, z: 0}
+  GScoreText: {fileID: 8128406613302371459}
+  HScoreText: {fileID: 5094328820238879653}
+  FScoreText: {fileID: 4796387457517136827}
