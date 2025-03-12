@@ -8,6 +8,8 @@ TagManager:
   - PathPrefab
   - PathPrefabParent
   - PlayerAgent
+  - StartNode
+  - EndNode
   layers:
   - Default
   - TransparentFX

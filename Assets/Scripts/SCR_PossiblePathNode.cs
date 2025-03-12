@@ -9,13 +9,21 @@ public class SCR_PossiblePathNode : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private GameObject playerReference;
-    [SerializeField] float GScore, HScore, FScore;
+    [SerializeField] float GScoreTotal = 0, GScore = 0, HScore, FScore;
     [SerializeField] Vector3 StartNodePositon, EndGoalPosition;
-    [SerializeField] TMP_Text GScoreText, HScoreText, FScoreText;
+    [SerializeField] TMP_Text GScoreText, HScoreText, FScoreText;    
 
-    public void SetPlayerReference(GameObject playerObj)
+    public class NodeBase
     {
-        playerReference = playerObj;
+        public NodeBase Connection { get; private set; }
+
+    }
+
+    public void SetPlayerReference()
+    {   if(playerReference!= null) { Debug.Log("player reference already set"); return; }
+        playerReference = GameObject.FindGameObjectWithTag("PlayerAgent");
+        StartNodePositon = GameObject.FindGameObjectWithTag("StartNode").transform.position;
+        EndGoalPosition = GameObject.FindGameObjectWithTag("EndNode").transform.position;
     }
 
     public void CalculatePathScores()
@@ -24,28 +32,34 @@ public class SCR_PossiblePathNode : MonoBehaviour
         CalculateHScore();
         CalculateFScore();
         UpdateScoreText();
-        Debug.Log("GScore is: " + GScore + " HScore is: " + HScore + " FScore is: " + FScore);
+        Debug.Log("GScore is: " + GScoreTotal + " HScore is: " + HScore + " FScore is: " + FScore);
+    }
+
+    public void ResetGScoreTotal()
+    {
+        GScoreTotal = 0;
     }
 
     private void UpdateScoreText()
     {
-        GScoreText.text = "G: " + GScore;
+        GScoreText.text = "G: " + GScoreTotal;
         HScoreText.text = "H: " + HScore;
         FScoreText.text = "F: " + FScore;
     }
 
     private void CalculateGScore()
     {
-        GScore = (gameObject.transform.position - StartNodePositon).magnitude;
+        GScore = Mathf.Abs(gameObject.transform.position.x - StartNodePositon.x) + Mathf.Abs(gameObject.transform.position.y - StartNodePositon.y);
+        GScoreTotal += GScore;
     }
 
     private void CalculateHScore()
     {
-        HScore = (gameObject.transform.position - EndGoalPosition).magnitude;
+        HScore = Mathf.Abs(gameObject.transform.position.x - EndGoalPosition.x) + Mathf.Abs(gameObject.transform.position.y - EndGoalPosition.y);
     }
 
     private void CalculateFScore()
     {
-        FScore = GScore + HScore;
+        FScore = GScoreTotal + HScore;
     }
 }

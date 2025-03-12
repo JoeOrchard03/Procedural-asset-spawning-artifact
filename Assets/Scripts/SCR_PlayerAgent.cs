@@ -9,6 +9,9 @@ public class SCR_PlayerAgent : MonoBehaviour
     private Vector3 startNodePos, goalNodePos;
     private float startToEndDistanceX, startToEndDistanceY, currentToStartDistance, currentToGoalDistance;
     // Start is called before the first frame update
+
+    public static List<NodeBase>
+
     public void AgentStep()
     {
         Debug.Log("Agent moving");
@@ -19,7 +22,7 @@ public class SCR_PlayerAgent : MonoBehaviour
             SCR_PossiblePathNode pathNodeScriptRef = possiblePath.gameObject.GetComponent<SCR_PossiblePathNode>();
             if(pathNodeScriptRef != null)
             {
-                possiblePath.GetComponent<SCR_PossiblePathNode>().SetPlayerReference(this.gameObject);
+                possiblePath.GetComponent<SCR_PossiblePathNode>().SetPlayerReference();
                 possiblePath.GetComponent<SCR_PossiblePathNode>().CalculatePathScores();
             }
             else { Debug.Log("path node script not found, NEE NORRRR NEE NORRRRRRRRR!!!!!!!"); }
