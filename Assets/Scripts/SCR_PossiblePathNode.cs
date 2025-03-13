@@ -13,12 +13,6 @@ public class SCR_PossiblePathNode : MonoBehaviour
     [SerializeField] Vector3 StartNodePositon, EndGoalPosition;
     [SerializeField] TMP_Text GScoreText, HScoreText, FScoreText;    
 
-    public class NodeBase
-    {
-        public NodeBase Connection { get; private set; }
-
-    }
-
     public void SetPlayerReference()
     {   if(playerReference!= null) { Debug.Log("player reference already set"); return; }
         playerReference = GameObject.FindGameObjectWithTag("PlayerAgent");
