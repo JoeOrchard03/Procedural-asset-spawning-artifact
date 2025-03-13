@@ -91,8 +91,7 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
             GameObject possiblePathObj = Instantiate(possiblePathPrefab, Vector2IntToVector3(possiblePath), Quaternion.identity);
             possiblePathObj.transform.SetParent(possiblePathObjParentObj.transform);
         }
-        //playerAgent.GetComponent<SCR_PlayerAgent>().FindPath(startDoor.GetComponent<SCR_NodeBase>(), endDoor.GetComponent<SCR_NodeBase>());
-        
+        playerAgent.GetComponent<SCR_PlayerAgent>().FindPath(startDoor.GetComponent<SCR_NodeBase>(), endDoor.GetComponent<SCR_NodeBase>());
     }
 
     protected override void PathFindingAgentStep()

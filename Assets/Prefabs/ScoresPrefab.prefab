@@ -645,12 +645,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93e3fbfcd9d97e643bb5239956e67669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerReference: {fileID: 0}
-  GScore: 0
-  HScore: 0
-  FScore: 0
-  StartNodePositon: {x: 0, y: 0, z: 0}
-  EndGoalPosition: {x: 0, y: 0, z: 0}
   GScoreText: {fileID: 8128406613302371459}
   HScoreText: {fileID: 5094328820238879653}
   FScoreText: {fileID: 4796387457517136827}

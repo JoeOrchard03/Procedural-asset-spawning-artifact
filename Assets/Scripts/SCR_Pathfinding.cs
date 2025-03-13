@@ -10,7 +10,6 @@ public static class SCR_Pathfinding
     {
         var toSearch = new List<SCR_NodeBase>() { startNode };
         var processed = new List<SCR_NodeBase>();
-
         //While there are elements inside the toSearch list
         while (toSearch.Any())
         {
@@ -48,26 +47,37 @@ public static class SCR_Pathfinding
                 return path;
             }
 
+            if (current.Neighbours == null)
+            {
+                Debug.LogError($"Node {current} has a null Neighbours list!");
+                return null;
+            }
+
+            Debug.Log($"current.Neighbours Count: {current.Neighbours.Count}");
+
             //Checks non processed neighbours of the cheapest movement cost node
             foreach (var neighbour in current.Neighbours.Where(node => !processed.Contains(node)))
             {
+                Debug.Log("6");
                 var inSearch = toSearch.Contains(neighbour);
 
                 //calculates the cost to get to the neighbour from the current best node
                 var costToNeighbour = current.G + current.GetDistance(neighbour);
-
+                
                 //If the new calculated cost is less then the current G cost of the neighbour update it
                 if (!inSearch || costToNeighbour < neighbour.G)
                 {
                     neighbour.SetG(costToNeighbour);
                     //Sets that neighbours connection to the current node to be able to retrack the path after the route is found
                     neighbour.SetConnection(current);
+                    Debug.Log("7");
 
                     if (!inSearch)
                     {
                         //Update the H cost and add it to be searched if it has not been yet
                         neighbour.SetH(neighbour.GetDistance(goalNode));
                         toSearch.Add(neighbour);
+                        Debug.Log("8");
                     }
                 }
             }

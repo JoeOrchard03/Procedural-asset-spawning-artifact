@@ -32,7 +32,7 @@ public class SCR_PlayerAgent : MonoBehaviour
     public void FindPath(SCR_NodeBase startNode, SCR_NodeBase goalNode)
     {
         var path = SCR_Pathfinding.FindPath(startNode, goalNode);
-        foreach(var node in path)
+        foreach (var node in path)
         {
             Debug.Log(node.name);
         }
@@ -49,4 +49,6 @@ public class SCR_PlayerAgent : MonoBehaviour
         var StartToEndDistance = new Vector2(startToEndDistanceX, startToEndDistanceY);
         Debug.Log("Distance from start to end is: " + StartToEndDistance);
     }
+
+
 }
