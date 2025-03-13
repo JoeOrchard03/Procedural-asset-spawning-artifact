@@ -89,11 +89,9 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
         {
             Debug.Log("Possible path found: " + possiblePath);
             GameObject possiblePathObj = Instantiate(possiblePathPrefab, Vector2IntToVector3(possiblePath), Quaternion.identity);
-            possiblePathObj.GetComponent<SCR_PossiblePathNode>().SetPlayerReference();
-            possiblePathObj.GetComponent<SCR_PossiblePathNode>().CalculatePathScores();
-            possiblePathObj.GetComponent<SCR_PossiblePathNode>().ResetGScoreTotal();
             possiblePathObj.transform.SetParent(possiblePathObjParentObj.transform);
         }
+        //playerAgent.GetComponent<SCR_PlayerAgent>().FindPath(startDoor.GetComponent<SCR_NodeBase>(), endDoor.GetComponent<SCR_NodeBase>());
         
     }
 
