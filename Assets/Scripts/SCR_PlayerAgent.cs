@@ -53,8 +53,8 @@ public class SCR_PlayerAgent : MonoBehaviour
                 return path;
             }
 
-            //Checks walkable and non processed neighbours of the cheapest movement cost node
-            foreach(var neighbour in current.Neighbours.Where(node => node.Walkable && !processed.Contains(node)))
+            //Checks non processed neighbours of the cheapest movement cost node
+            foreach(var neighbour in current.Neighbours.Where(node => !processed.Contains(node)))
             {
                 var inSearch = toSearch.Contains(neighbour);
 
@@ -82,21 +82,21 @@ public class SCR_PlayerAgent : MonoBehaviour
 
     public void AgentStep()
     {
-        Debug.Log("Agent moving");
-        GameObject[] possiblePaths = GameObject.FindGameObjectsWithTag("PathPrefab");
-        foreach (GameObject possiblePath in possiblePaths)
-        {
-            Debug.Log("Found object: " + possiblePath.name);
-            SCR_PossiblePathNode pathNodeScriptRef = possiblePath.gameObject.GetComponent<SCR_PossiblePathNode>();
-            if(pathNodeScriptRef != null)
-            {
-                possiblePath.GetComponent<SCR_PossiblePathNode>().SetPlayerReference();
-                possiblePath.GetComponent<SCR_PossiblePathNode>().CalculatePathScores();
-            }
-            else { Debug.Log("path node script not found, NEE NORRRR NEE NORRRRRRRRR!!!!!!!"); }
-        }
+        //Debug.Log("Agent moving");
+        //GameObject[] possiblePaths = GameObject.FindGameObjectsWithTag("PathPrefab");
+        //foreach (GameObject possiblePath in possiblePaths)
+        //{
+        //    Debug.Log("Found object: " + possiblePath.name);
+        //    SCR_PossiblePathNode pathNodeScriptRef = possiblePath.gameObject.GetComponent<SCR_PossiblePathNode>();
+        //    if(pathNodeScriptRef != null)
+        //    {
+        //        possiblePath.GetComponent<SCR_PossiblePathNode>().SetPlayerReference();
+        //        possiblePath.GetComponent<SCR_PossiblePathNode>().CalculatePathScores();
+        //    }
+        //    else { Debug.Log("path node script not found, NEE NORRRR NEE NORRRRRRRRR!!!!!!!"); }
+        //}
 
-        gameObject.transform.position = startNodePos;
+        //gameObject.transform.position = startNodePos;
     }
 
     public void StartToEndGoalDistance()

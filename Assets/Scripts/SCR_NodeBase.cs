@@ -12,6 +12,7 @@ using UnityEngine;
 
 public abstract class SCR_NodeBase : MonoBehaviour
 {
+    public List<SCR_NodeBase> Neighbours { get; protected set; }
     //Node that the current node originated from
     public SCR_NodeBase Connection { get; private set; }
     // G score movement cost from current node to start node
@@ -27,5 +28,9 @@ public abstract class SCR_NodeBase : MonoBehaviour
     public void SetG(float g) => G = g;
     public void SetH(float h) => H = h;
 
-    //public void GetDistance()
+    public float GetDistance(SCR_NodeBase nodeToGetDistanceTo)
+    {
+        float varToReturn = Mathf.Abs(gameObject.transform.position.x - nodeToGetDistanceTo.gameObject.transform.position.x) + Mathf.Abs(gameObject.transform.position.y - nodeToGetDistanceTo.gameObject.transform.position.y);
+        return varToReturn; 
+    }
 }
