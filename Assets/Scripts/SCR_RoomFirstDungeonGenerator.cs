@@ -80,17 +80,6 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
 
     private void GetPossiblePaths(HashSet<Vector2Int> floor)
     {
-        var possiblePaths = SCR_WallGen.FindAgentPathInDirections(floor, Direction2D.cardinalDirectionsList, Vector3ToVector2Int(playerAgent.transform.position));
-        GameObject objToDelete = GameObject.FindGameObjectWithTag("PathPrefabParent");
-        DestroyImmediate(objToDelete);  
-        GameObject possiblePathObjParentObj = new GameObject();
-        possiblePathObjParentObj.tag = "PathPrefabParent";
-        foreach (var possiblePath in possiblePaths)
-        {
-            Debug.Log("Possible path found: " + possiblePath);
-            GameObject possiblePathObj = Instantiate(possiblePathPrefab, Vector2IntToVector3(possiblePath), Quaternion.identity);
-            possiblePathObj.transform.SetParent(possiblePathObjParentObj.transform);
-        }
         playerAgent.GetComponent<SCR_PlayerAgent>().FindPath(startDoor.GetComponent<SCR_NodeBase>(), endDoor.GetComponent<SCR_NodeBase>());
     }
 

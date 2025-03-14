@@ -12,6 +12,7 @@ using UnityEngine;
 
 public abstract class SCR_NodeBase : MonoBehaviour
 {
+    public ICoords Coords;
     public List<SCR_NodeBase> Neighbours { get; protected set; }
     //Node that the current node originated from
     public SCR_NodeBase Connection { get; private set; }
@@ -35,4 +36,10 @@ public abstract class SCR_NodeBase : MonoBehaviour
         float varToReturn = Mathf.Abs(gameObject.transform.position.x - nodeToGetDistanceTo.gameObject.transform.position.x) + Mathf.Abs(gameObject.transform.position.y - nodeToGetDistanceTo.gameObject.transform.position.y);
         return varToReturn; 
     }
+}
+
+public interface ICoords
+{
+    public float GetDistance(ICoords other);
+    public Vector2 Pos { get; set; }
 }
