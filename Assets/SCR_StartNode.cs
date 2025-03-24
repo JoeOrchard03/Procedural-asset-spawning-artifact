@@ -11,17 +11,18 @@ public class SCR_StartNode : SCR_NodeBase
     private void Start()
     {
         gridManagerInstance = GameObject.Find("GridManager").GetComponent<SCR_GridManager>();
-        Debug.Log("start is running");
     }
 
     public override void CacheNeighbors()
     {
+        Debug.Log("1");
         Neighbours = new List<SCR_NodeBase>();
-
+        Debug.Log("2");
         foreach (var tile in Direction2D.cardinalDirectionsList.Select(dir => gridManagerInstance.GetTileAtPosition(new Vector2(transform.position.x, transform.position.y) + dir)).Where(tile => tile != null))
         {
             Debug.Log($"Tile that has been found is: {tile.name}");
             Neighbours.Add(tile);
         }
+        Debug.Log("3");
     }
 }

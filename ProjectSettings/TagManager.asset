@@ -10,6 +10,7 @@ TagManager:
   - PlayerAgent
   - StartNode
   - EndNode
+  - tile
   layers:
   - Default
   - TransparentFX

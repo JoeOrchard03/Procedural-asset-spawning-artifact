@@ -403,6 +403,7 @@ MonoBehaviour:
   playerAgent: {fileID: 1935800813}
   possiblePathPrefab: {fileID: 9073307744813285623, guid: c23827b7f7fbc8e4588912897a580664,
     type: 3}
+  gridManagerInstance: {fileID: 0}
 --- !u!4 &485977612
 Transform:
   m_ObjectHideFlags: 0
@@ -1222,8 +1223,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2076966811}
   - {fileID: 2117680433}
+  - {fileID: 2076966811}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1816528803

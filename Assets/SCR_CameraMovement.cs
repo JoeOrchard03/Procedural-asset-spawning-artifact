@@ -29,7 +29,7 @@ public class SCR_CameraMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             Vector3 pos = gameObject.transform.position;
-            pos.x -= (0.5f * Time.deltaTime);
+            pos.x -= (camMoveSpeed * Time.deltaTime);
             gameObject.transform.position = pos;
         }
     }

@@ -39,6 +39,8 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
     [SerializeField]
     private GameObject possiblePathPrefab;
 
+    [SerializeField] private SCR_GridManager gridManagerInstance;
+
     protected override void RunProcGen()
     {
         CreateRooms();
@@ -76,6 +78,10 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
         SCR_WallGen.CreateWalls(floor, tilemapVisualizer);
         GetPossiblePaths(floor);
         playerAgent.GetComponent<SCR_PlayerAgent>().StartToEndGoalDistance();
+
+        gridManagerInstance = GameObject.Find("GridManager").GetComponent<SCR_GridManager>();
+        gridManagerInstance.floorTiles = floor;
+        Debug.Log("gridManagerInstance populated with floor pieces");
     }
 
     private void GetPossiblePaths(HashSet<Vector2Int> floor)
