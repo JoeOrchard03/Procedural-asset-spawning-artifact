@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SCR_CameraMovement : MonoBehaviour
 {
-    private float camMoveSpeed = 2f;
+    private float camMoveSpeed = 5f;
     // Update is called once per frame
     void Update()
     {
@@ -29,7 +29,7 @@ public class SCR_CameraMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             Vector3 pos = gameObject.transform.position;
-            pos.x -= (camMoveSpeed * Time.deltaTime);
+            pos.x -= (0.5f * Time.deltaTime);
             gameObject.transform.position = pos;
         }
     }
