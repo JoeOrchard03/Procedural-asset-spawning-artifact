@@ -11,6 +11,7 @@ public class SCR_StartNode : SCR_NodeBase
     private void Start()
     {
         gridManagerInstance = GameObject.Find("GridManager").GetComponent<SCR_GridManager>();
+        Debug.Log("start is running");
     }
 
     public override void CacheNeighbors()
