@@ -36,6 +36,16 @@ public abstract class SCR_NodeBase : MonoBehaviour
         float varToReturn = Mathf.Abs(gameObject.transform.position.x - nodeToGetDistanceTo.gameObject.transform.position.x) + Mathf.Abs(gameObject.transform.position.y - nodeToGetDistanceTo.gameObject.transform.position.y);
         return varToReturn; 
     }
+
+    public GameObject getSelfGameObject()
+    {
+        return gameObject;
+    }
+
+    public Vector3 getSelfPos()
+    {
+        return gameObject.transform.position;
+    }
 }
 
 public interface ICoords

@@ -26,11 +26,16 @@ public static class SCR_Pathfinding
 
             //Add the node to processed after it is processed
             processed.Add(current);
+            GameObject currentObj = current.getSelfGameObject();
+            currentObj.GetComponentInChildren<SpriteRenderer>().color = Color.red;
             //Remove it from the to be searched que
             toSearch.Remove(current);
 
+            Debug.Log("current self pos is: " + current.getSelfPos());
+            Debug.Log("goal node self pos is: " + goalNode.getSelfPos());
+
             //Checks if the current node is the goal node
-            if (current == goalNode)
+            if (current.getSelfPos() == goalNode.getSelfPos())
             {
                 var currentPathTile = goalNode;
                 //create a new list that contains the best path from goal to start node
@@ -58,26 +63,23 @@ public static class SCR_Pathfinding
             //Checks non processed neighbours of the cheapest movement cost node
             foreach (var neighbour in current.Neighbours.Where(node => !processed.Contains(node)))
             {
-                Debug.Log("6");
                 var inSearch = toSearch.Contains(neighbour);
 
                 //calculates the cost to get to the neighbour from the current best node
                 var costToNeighbour = current.G + current.GetDistance(neighbour);
-                
+
                 //If the new calculated cost is less then the current G cost of the neighbour update it
                 if (!inSearch || costToNeighbour < neighbour.G)
                 {
                     neighbour.SetG(costToNeighbour);
                     //Sets that neighbours connection to the current node to be able to retrack the path after the route is found
                     neighbour.SetConnection(current);
-                    Debug.Log("7");
 
                     if (!inSearch)
                     {
                         //Update the H cost and add it to be searched if it has not been yet
                         neighbour.SetH(neighbour.GetDistance(goalNode));
                         toSearch.Add(neighbour);
-                        Debug.Log("8");
                     }
                 }
             }

@@ -43,6 +43,7 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
 
     protected override void RunProcGen()
     {
+        Debug.Log("Generating");
         CreateRooms();
     }
 
@@ -76,18 +77,28 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
         floor.UnionWith(corridors);
         tilemapVisualizer.PaintFloorTiles(floor);
         SCR_WallGen.CreateWalls(floor, tilemapVisualizer);
-        GetPossiblePaths(floor);
         playerAgent.GetComponent<SCR_PlayerAgent>().StartToEndGoalDistance();
 
-        gridManagerInstance = GameObject.Find("GridManager").GetComponent<SCR_GridManager>();
-        gridManagerInstance.floorTiles = floor;
-        Debug.Log("gridManagerInstance populated with floor pieces");
+        //gridManagerInstance = GameObject.Find("GridManager").GetComponent<SCR_GridManager>();
+        //gridManagerInstance.floorTiles = floor;
+        //Debug.Log("gridManagerInstance populated with floor pieces");
+
+        StartCoroutine(GetPossiblePaths(floor));
     }
 
-    private void GetPossiblePaths(HashSet<Vector2Int> floor)
+    private IEnumerator GetPossiblePaths(HashSet<Vector2Int> floor)
     {
+        yield return new WaitForSeconds(2.0f);
+        gridManagerInstance = GameObject.Find("GridManager").GetComponent<SCR_GridManager>();
+        gridManagerInstance.floorTiles = floor;
+        gridManagerInstance.GetNeighbours();
+        Debug.Log("gridManagerInstance populated with floor pieces");
+
+        yield return new WaitForSeconds(1.0f);
+        Debug.Log("Getting possible paths");
         playerAgent.GetComponent<SCR_PlayerAgent>().FindPath(startDoor.GetComponent<SCR_NodeBase>(), endDoor.GetComponent<SCR_NodeBase>());
     }
+
 
     protected override void PathFindingAgentStep()
     {

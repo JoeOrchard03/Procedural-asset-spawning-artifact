@@ -20,11 +20,24 @@ public class SCR_PossiblePathNode : SCR_NodeBase
     {
         Neighbours = new List<SCR_NodeBase>();
 
-        foreach (var tile in Direction2D.cardinalDirectionsList.Select(dir => gridManagerInstance.GetTileAtPosition(new Vector2(transform.position.x, transform.position.y) + dir)).Where(tile => tile != null))
+        foreach(Vector2 dir in Direction2D.cardinalDirectionsList)
         {
-            Debug.Log($"Tile that has been found is: {tile.name}");
-            Neighbours.Add(tile);
+            Vector2 currentPos = new Vector2(transform.position.x, transform.position.y);
+            Debug.Log($"{gameObject.transform.name} current position is: {currentPos}");
+            Debug.Log("raycast position is: " + new Vector2(transform.position.x + dir.x, transform.position.y + dir.y));
+            var tile = gridManagerInstance.GetTileAtPosition(new Vector2(transform.position.x + dir.x, transform.position.y + dir.y));
+            if(tile != null)
+            {
+                Debug.Log($"tile that has been found is: {tile.gameObject.name}");
+                Neighbours.Add(tile);
+            }
         }
+
+        //foreach (var tile in Direction2D.cardinalDirectionsList.Select(dir => gridManagerInstance.GetTileAtPosition(new Vector2(transform.position.x, transform.position.y) + dir)).Where(tile => tile != null))
+        //{
+        //    Debug.Log($"Tile that has been found is: {tile.name}");
+        //    Neighbours.Add(tile);
+        //}
     }
 
     public struct SquareCoords : ICoords
