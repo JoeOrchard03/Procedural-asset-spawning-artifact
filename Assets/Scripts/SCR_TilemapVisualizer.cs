@@ -21,6 +21,8 @@ public class SCR_TilemapVisualizer : MonoBehaviour
     private TileBase floorTile, wallTop, wallSideRight, wallSideLeft, WallBottom, wallFull, wallInnerCornerDownLeft, wallInnerCornerDownRight,
         wallDiagonalCornerDownLeft, wallDiagonalCornerUpRight, wallDiagonalCornerUpLeft, wallDiagonalCornerDownRight;
 
+    private float tileCounter = 0;
+
     //Uses IEnumerable as a variable to store generic collections
     public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions)
     {

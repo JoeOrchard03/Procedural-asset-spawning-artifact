@@ -88,15 +88,15 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
 
     private IEnumerator GetPossiblePaths(HashSet<Vector2Int> floor)
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(0.25f);
         gridManagerInstance = GameObject.Find("GridManager").GetComponent<SCR_GridManager>();
         gridManagerInstance.floorTiles = floor;
         gridManagerInstance.GetNeighbours();
-        Debug.Log("gridManagerInstance populated with floor pieces");
+        //Debug.Log("gridManagerInstance populated with floor pieces");
 
-        yield return new WaitForSeconds(1.0f);
-        Debug.Log("Getting possible paths");
-        playerAgent.GetComponent<SCR_PlayerAgent>().FindPath(startDoor.GetComponent<SCR_NodeBase>(), endDoor.GetComponent<SCR_NodeBase>());
+        yield return new WaitForSeconds(0.25f);
+        //Debug.Log("Getting possible paths");
+        playerAgent.GetComponent<SCR_PlayerAgent>().FindPath();
     }
 
 
@@ -238,7 +238,7 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
             }
         }
         Vector3Int SmallesRoomCentreRoundedToInt = Vector3Int.RoundToInt(smallestRoomCentre);
-        startDoor.transform.position = SmallesRoomCentreRoundedToInt;
+        startDoor.transform.position = addCenteringOffset(SmallesRoomCentreRoundedToInt);
         playerAgent.transform.position = startDoor.transform.position;
     }
 
@@ -253,6 +253,12 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
             }
         }
         Vector3Int LargestRoomCentreRoundedToInt = Vector3Int.RoundToInt(largestRoomCentre);
-        endDoor.transform.position = LargestRoomCentreRoundedToInt;
+        endDoor.transform.position = addCenteringOffset(LargestRoomCentreRoundedToInt);
+    }
+
+    private Vector3 addCenteringOffset(Vector3 startingVector)
+    {
+        Vector3 returnVector = new Vector3(startingVector.x + 0.5f, startingVector.y + 0.5f, startingVector.z);
+        return returnVector;
     }
 }

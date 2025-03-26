@@ -29,17 +29,12 @@ public class SCR_PlayerAgent : MonoBehaviour
         //gameObject.transform.position = startNodePos;
     }
 
-    public void FindPath(SCR_NodeBase startNode, SCR_NodeBase goalNode)
+    public void FindPath()
     {
-        var path = SCR_Pathfinding.FindPath(startNode, goalNode);
+        var path = SCR_Pathfinding.FindPath(startNode.GetComponent<SCR_NodeBase>(), goalNode.GetComponent<SCR_NodeBase>());
         if(path == null)
         {
             Debug.Log("path not found / empty");
-        }
-        foreach(var tile in path)
-        {
-            GameObject tileObj = tile.getSelfGameObject();
-            tileObj.GetComponentInChildren<SpriteRenderer>().color = Color.green;
         }
     }
 

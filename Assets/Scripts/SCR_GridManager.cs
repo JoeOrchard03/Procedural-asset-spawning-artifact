@@ -20,8 +20,8 @@ public class SCR_GridManager : MonoBehaviour
         foreach (GameObject tile in tiles)
         {
             tile.GetComponent<SCR_PossiblePathNode>().CacheNeighbors();
-            var tileNeighbours = tile.GetComponent<SCR_PossiblePathNode>().Neighbours;
-            Debug.Log($"Tile {tile.gameObject.name} {tileCounter} has {tileNeighbours.Count} neighbours");
+            tileCounter++;
+            tile.name += " " + tileCounter.ToString();
         }
     }
 
@@ -37,23 +37,11 @@ public class SCR_GridManager : MonoBehaviour
 
         if (Physics.Raycast(rayOrigin, new Vector3(0, 0, 1), out hit, Mathf.Infinity))
         {
-            Debug.Log($"Raycast hit: {hit.collider.gameObject.name} at {hit.collider.gameObject.transform.position}");
+            //Debug.Log($"Raycast hit: {hit.collider.gameObject.name} at {hit.collider.gameObject.transform.position}");
             return hit.collider.gameObject.GetComponent<SCR_NodeBase>();
         }
 
-        Debug.Log($"No colliders found at position {pos}");
+        //Debug.Log($"No colliders found at position {pos}");
         return null;
-
-        //tilePosition = pos;
-        //Collider[] hitColliders = Physics.OverlapSphere(pos, 0.25f, ~0);
-
-        //if(hitColliders.Length == 0)
-        //{
-        //    Debug.Log($"No colliders found at position {pos}");
-        //    return null;
-        //}
-        //tileCounter++;
-        //Debug.Log($"Collider that has been hit is: {hitColliders[0].gameObject.name}");
-        //return hitColliders[0].transform.gameObject.GetComponent<SCR_NodeBase>();
     }
 }

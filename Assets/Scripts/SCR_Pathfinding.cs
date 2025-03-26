@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public static class SCR_Pathfinding
 {
     // Start is called before the first frame update
-    public static List<SCR_NodeBase> FindPath(SCR_NodeBase startNode, SCR_NodeBase goalNode)
+    public static List<SCR_NodeBase> FindPath(SCR_NodeBase startNodePrefab, SCR_NodeBase goalNodePrefab)
     {
+        SCR_NodeBase startNode = getTile(startNodePrefab);
+        SCR_NodeBase goalNode = getTile(goalNodePrefab);
+
         var toSearch = new List<SCR_NodeBase>() { startNode };
         var processed = new List<SCR_NodeBase>();
         //While there are elements inside the toSearch list
@@ -26,13 +31,10 @@ public static class SCR_Pathfinding
 
             //Add the node to processed after it is processed
             processed.Add(current);
-            GameObject currentObj = current.getSelfGameObject();
-            currentObj.GetComponentInChildren<SpriteRenderer>().color = Color.red;
+            GameObject currentObj = current.gameObject.GetComponent<SCR_PossiblePathNode>().getSelfGameObject();
+            //currentObj.GetComponentInChildren<SpriteRenderer>().color = Color.red;
             //Remove it from the to be searched que
             toSearch.Remove(current);
-
-            Debug.Log("current self pos is: " + current.getSelfPos());
-            Debug.Log("goal node self pos is: " + goalNode.getSelfPos());
 
             //Checks if the current node is the goal node
             if (current.getSelfPos() == goalNode.getSelfPos())
@@ -48,7 +50,14 @@ public static class SCR_Pathfinding
                     currentPathTile = currentPathTile.Connection;
                 }
 
+                foreach(var tile in path)
+                {
+                    tile.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = true;
+                    tile.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.green;
+                }
+
                 //Returns the completed path
+                Debug.Log("Returning a completed path, goal found");
                 return path;
             }
 
@@ -57,8 +66,6 @@ public static class SCR_Pathfinding
                 Debug.LogError($"Node {current} has a null Neighbours list!");
                 return null;
             }
-
-            Debug.Log($"current.Neighbours Count: {current.Neighbours.Count}");
 
             //Checks non processed neighbours of the cheapest movement cost node
             foreach (var neighbour in current.Neighbours.Where(node => !processed.Contains(node)))
@@ -84,6 +91,26 @@ public static class SCR_Pathfinding
                 }
             }
         }
+        Debug.Log("path being returned is null");
+        return null;
+    }
+
+    private static SCR_NodeBase getTile(SCR_NodeBase NodePrefab)
+    {
+        Vector3 pos = NodePrefab.gameObject.transform.position;
+
+        Vector3 rayOrigin = new Vector3(pos.x, pos.y, -10.0f);
+
+        //Debug.DrawRay(rayOrigin, new Vector3(0, 0, 1) * 20.0f, Color.blue, Mathf.Infinity);
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(rayOrigin, new Vector3(0, 0, 1), out hit, Mathf.Infinity))
+        {
+            //Debug.Log($"Raycast hit: {hit.collider.gameObject.name} at {hit.collider.gameObject.transform.position}");
+            return hit.collider.gameObject.GetComponent<SCR_NodeBase>();
+        }
+        //Debug.Log("node tile not found");
         return null;
     }
 }

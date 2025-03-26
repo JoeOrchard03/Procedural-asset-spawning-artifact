@@ -24,7 +24,10 @@ public abstract class SCR_NodeBase : MonoBehaviour
     public float F => G + H;
 
     //Setting the connction of the current node
-    public void SetConnection(SCR_NodeBase nodeBase) => Connection = nodeBase;
+    public void SetConnection(SCR_NodeBase nodeBase)
+    {
+        Connection = nodeBase;
+    }
 
     public void SetG(float g) => G = g;
     public void SetH(float h) => H = h;
@@ -37,14 +40,11 @@ public abstract class SCR_NodeBase : MonoBehaviour
         return varToReturn; 
     }
 
-    public GameObject getSelfGameObject()
-    {
-        return gameObject;
-    }
+    public abstract GameObject getSelfGameObject();
 
-    public Vector3 getSelfPos()
+    public Vector2 getSelfPos()
     {
-        return gameObject.transform.position;
+        return new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
     }
 }
 
