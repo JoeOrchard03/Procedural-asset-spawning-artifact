@@ -41,6 +41,8 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
 
     [SerializeField] private SCR_GridManager gridManagerInstance;
 
+    public HashSet<Vector2Int> corridors;
+
     protected override void RunProcGen()
     {
         Debug.Log("Generating");
@@ -73,7 +75,7 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
 
         FindBottomLeftRoom(roomsList);
         FindTopRightRoom(roomsList);
-        HashSet<Vector2Int> corridors = ConnectRooms(roomCenters);
+        corridors = ConnectRooms(roomCenters);
         floor.UnionWith(corridors);
         tilemapVisualizer.PaintFloorTiles(floor);
         SCR_WallGen.CreateWalls(floor, tilemapVisualizer);

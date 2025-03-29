@@ -23,6 +23,12 @@ public abstract class SCR_AbstractDungeonGen : MonoBehaviour
         RunProcGen();
     }
 
+    public void GenerateDungeon(string typeOfAssetPlacement)
+    {
+        tilemapVisualizer.Clear();
+        RunProcGen();
+    }
+
     public void AgentStep()
     {
         PathFindingAgentStep();

@@ -9,6 +9,8 @@ public class SCR_PlayerAgent : MonoBehaviour
     private GameObject startNode, goalNode;
     private Vector3 startNodePos, goalNodePos;
     private float startToEndDistanceX, startToEndDistanceY, currentToStartDistance, currentToGoalDistance;
+
+    [SerializeField] public List<SCR_NodeBase> pathNodes;
     // Start is called before the first frame update
     public void AgentStep()
     {
@@ -31,8 +33,8 @@ public class SCR_PlayerAgent : MonoBehaviour
 
     public void FindPath()
     {
-        var path = SCR_Pathfinding.FindPath(startNode.GetComponent<SCR_NodeBase>(), goalNode.GetComponent<SCR_NodeBase>());
-        if(path == null)
+        pathNodes = SCR_Pathfinding.FindPath(startNode.GetComponent<SCR_NodeBase>(), goalNode.GetComponent<SCR_NodeBase>());
+        if(pathNodes == null)
         {
             Debug.Log("path not found / empty");
         }

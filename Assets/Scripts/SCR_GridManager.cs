@@ -9,15 +9,17 @@ public class SCR_GridManager : MonoBehaviour
 
     [SerializeField] public HashSet<Vector2Int> floorTiles;
 
+    public GameObject[] floorTileObjs;
+
     public int tileCounter;
 
     private Vector2 tilePosition;
 
     public void GetNeighbours()
     {
-        GameObject[] tiles = GameObject.FindGameObjectsWithTag("tile");
+        floorTileObjs = GameObject.FindGameObjectsWithTag("tile");
 
-        foreach (GameObject tile in tiles)
+        foreach (GameObject tile in floorTileObjs)
         {
             tile.GetComponent<SCR_PossiblePathNode>().CacheNeighbors();
             tileCounter++;
