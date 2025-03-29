@@ -1337,8 +1337,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1468210805}
-        m_TargetAssemblyTypeName: SCR_PathFirstAssetPlacement, Scripts
-        m_MethodName: GenerateDungeon
+        m_TargetAssemblyTypeName: SCR_AssetPlacementAlgos, Scripts
+        m_MethodName: GenerateDungeonPathFirst
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2117,9 +2117,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 485977611}
-        m_TargetAssemblyTypeName: SCR_AbstractDungeonGen, Scripts
-        m_MethodName: GenerateDungeon
+      - m_Target: {fileID: 1468210805}
+        m_TargetAssemblyTypeName: SCR_AssetPlacementAlgos, Scripts
+        m_MethodName: GenerateDungeonCorridorsConsidered
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

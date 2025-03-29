@@ -15,14 +15,40 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
     [SerializeField] float maximumRandomSpawnNumber = 11;
     [SerializeField] float randomSpawnNumber = 3;
 
-    public void GenerateDungeon()
+    private List<SCR_NodeBase> corridorTiles = new List<SCR_NodeBase>();
+
+    public void GenerateDungeonPathFirst()
     {
         Debug.Log("Generating dungeon");
         roomFirstGeneratorInstance.GenerateDungeon();
-        Invoke(nameof(CheckTiles), 3.0f);
+        Invoke(nameof(CheckTilesNotInPath), 3.0f);
     }
 
-    private void CheckTiles()
+    public void GenerateDungeonCorridorsConsidered()
+    {
+        roomFirstGeneratorInstance.GenerateDungeon();
+        Invoke(nameof(CheckTilesNotInCorridor), 3.0f);
+    }
+
+    private void CheckTilesNotInCorridor()
+    {
+        foreach(var tilePosition in roomFirstGeneratorInstance.corridors)
+        {
+            Vector2 convertedPosVar = new Vector2(tilePosition.x, tilePosition.y);
+            corridorTiles.Add(gridManagerInstance.GetTileAtPosition(convertedPosVar));
+            Debug.Log("Adding tile: " + gridManagerInstance.GetTileAtPosition(convertedPosVar).gameObject.name + " to corridor tiles"); 
+        }
+
+        foreach (GameObject floorTile in gridManagerInstance.floorTileObjs)
+        {
+            if (!corridorTiles.Contains(floorTile.GetComponent<SCR_NodeBase>()))
+            {
+                RandomSpawnChance(floorTile);
+            }
+        }
+    }
+
+    private void CheckTilesNotInPath()
     {
         foreach(GameObject floorTile in gridManagerInstance.floorTileObjs)
         {
