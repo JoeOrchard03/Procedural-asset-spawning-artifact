@@ -21,7 +21,7 @@ public class SCR_RandomWalkDungeonGenerator : SCR_AbstractDungeonGen
     /// <summary>
     /// Runs the random walk algorithm for the amount of times set in Iterations and then prints out all the positions that the combined random walk algorithms generate
     /// </summary>
-    protected override void RunProcGen()
+    protected override void RunProcGen(bool NA)
     {
         HashSet<Vector2Int> floorPositions = RunRandomWalk(randomWalkParameters, startPos);
         //Clear tilemap

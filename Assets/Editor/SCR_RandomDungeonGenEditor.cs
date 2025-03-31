@@ -27,7 +27,7 @@ public class SCR_RandomDungeonGenEditor : Editor
         //Creates a button and runs if it is pressed
         if(GUILayout.Button("Create Dungeon"))
         {
-            generator.GenerateDungeon();
+            generator.GenerateDungeon(true);
         }
         if (GUILayout.Button("Agent Step"))
         {

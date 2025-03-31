@@ -17,16 +17,11 @@ public abstract class SCR_AbstractDungeonGen : MonoBehaviour
     [SerializeField]
     protected Vector2Int startPos = Vector2Int.zero;
 
-    public void GenerateDungeon()
+    public void GenerateDungeon(bool generatePath)
     {
+        Debug.Log("Generating dungeon with generate path set to: " + generatePath);
         tilemapVisualizer.Clear();
-        RunProcGen();
-    }
-
-    public void GenerateDungeon(string typeOfAssetPlacement)
-    {
-        tilemapVisualizer.Clear();
-        RunProcGen();
+        RunProcGen(generatePath);
     }
 
     public void AgentStep()
@@ -34,7 +29,7 @@ public abstract class SCR_AbstractDungeonGen : MonoBehaviour
         PathFindingAgentStep();
     }
 
-    protected abstract void RunProcGen();
+    protected abstract void RunProcGen(bool generatePath);
 
     protected abstract void PathFindingAgentStep();
 

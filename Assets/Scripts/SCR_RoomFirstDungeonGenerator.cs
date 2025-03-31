@@ -43,13 +43,12 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
 
     public HashSet<Vector2Int> corridors;
 
-    protected override void RunProcGen()
+    protected override void RunProcGen(bool generatePath)
     {
-        Debug.Log("Generating");
-        CreateRooms();
+        CreateRooms(generatePath);
     }
 
-    public void CreateRooms()
+    public void CreateRooms(bool generatePath)
     {
         //Run the binary space partitioning algorithm to generate the list of rooms
         var roomsList = SCR_PCGAlgorithms.BinarySpacePartitioning(new BoundsInt((Vector3Int)startPos,
@@ -81,14 +80,10 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
         SCR_WallGen.CreateWalls(floor, tilemapVisualizer);
         playerAgent.GetComponent<SCR_PlayerAgent>().StartToEndGoalDistance();
 
-        //gridManagerInstance = GameObject.Find("GridManager").GetComponent<SCR_GridManager>();
-        //gridManagerInstance.floorTiles = floor;
-        //Debug.Log("gridManagerInstance populated with floor pieces");
-
-        StartCoroutine(GetPossiblePaths(floor));
+        StartCoroutine(GetPossiblePaths(floor, generatePath));
     }
 
-    private IEnumerator GetPossiblePaths(HashSet<Vector2Int> floor)
+    private IEnumerator GetPossiblePaths(HashSet<Vector2Int> floor, bool generatePath)
     {
         yield return new WaitForSeconds(0.25f);
         gridManagerInstance = GameObject.Find("GridManager").GetComponent<SCR_GridManager>();
@@ -98,7 +93,10 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
 
         yield return new WaitForSeconds(0.25f);
         //Debug.Log("Getting possible paths");
-        playerAgent.GetComponent<SCR_PlayerAgent>().FindPath();
+        if(generatePath)
+        {
+            playerAgent.GetComponent<SCR_PlayerAgent>().FindPath();
+        }
     }
 
 

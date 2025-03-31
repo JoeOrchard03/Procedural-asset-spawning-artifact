@@ -20,14 +20,14 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
     public void GenerateDungeonPathFirst()
     {
         Debug.Log("Generating dungeon");
-        roomFirstGeneratorInstance.GenerateDungeon();
+        roomFirstGeneratorInstance.GenerateDungeon(true);
         Invoke(nameof(CheckTilesNotInPath), 3.0f);
     }
 
     public void GenerateDungeonCorridorsConsidered()
     {
-        roomFirstGeneratorInstance.GenerateDungeon();
-        Invoke(nameof(CheckTilesNotInCorridor), 3.0f);
+        roomFirstGeneratorInstance.GenerateDungeon(false);
+        Invoke(nameof(CheckTilesNotInCorridor), 1.0f);
     }
 
     private void CheckTilesNotInCorridor()

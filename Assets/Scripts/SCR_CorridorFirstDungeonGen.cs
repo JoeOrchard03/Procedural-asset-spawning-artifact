@@ -20,7 +20,7 @@ public class SCR_CorridorFirstDungeonGen : SCR_RandomWalkDungeonGenerator
     [Tooltip("How likely a room is to branch off from a piece of corridor")]
     public float roomPercent = 0.8f;
 
-    protected override void RunProcGen()
+    protected override void RunProcGen(bool NA)
     {
         CorridorFirstGen();
     }
