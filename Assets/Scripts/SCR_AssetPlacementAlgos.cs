@@ -17,15 +17,34 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
 
     private List<SCR_NodeBase> corridorTiles = new List<SCR_NodeBase>();
 
+    #region "Path first generation/placement"
     public void GenerateDungeonPathFirst()
     {
         Debug.Log("Generating dungeon");
+        //Generate dungeon and path
         roomFirstGeneratorInstance.GenerateDungeon(true);
         Invoke(nameof(CheckTilesNotInPath), 3.0f);
     }
 
+    private void CheckTilesNotInPath()
+    {
+        foreach(GameObject floorTile in gridManagerInstance.floorTileObjs)
+        {
+            //Checking that the path does not contain the nodes that will be considered for asset placement
+            if (!playerAgentInstance.pathNodes.Contains(floorTile.GetComponent<SCR_NodeBase>()))
+            {
+                RandomSpawnChance(floorTile);
+            }
+        }
+    }
+
+    #endregion
+
+    #region "Corridor considering generation/placement"
+
     public void GenerateDungeonCorridorsConsidered()
     {
+        //Generates dungeon without path
         roomFirstGeneratorInstance.GenerateDungeon(false);
         Invoke(nameof(CheckTilesNotInCorridor), 0.5f);
         Invoke(nameof(GeneratePath), 1.5f);
@@ -33,6 +52,7 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
 
     private void CheckTilesNotInCorridor()
     {
+        //Gets the node bases of the tiles that make up the corridors
         foreach(var tilePosition in roomFirstGeneratorInstance.corridors)
         {
             corridorTiles.Add(gridManagerInstance.GetTileAtPosition(tilePosition + new Vector2(0.5f, 0.5f), true));
@@ -41,6 +61,7 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
 
         foreach (GameObject floorTile in gridManagerInstance.floorTileObjs)
         {
+            //Makes sure tiles that are in the corridorTiles list are not considered for asset placement
             if (!corridorTiles.Contains(floorTile.GetComponent<SCR_NodeBase>()))
             {
                 RandomSpawnChance(floorTile, true);
@@ -48,25 +69,18 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
         }
     }
 
-    private void CheckTilesNotInPath()
-    {
-        foreach(GameObject floorTile in gridManagerInstance.floorTileObjs)
-        {
-            if (!playerAgentInstance.pathNodes.Contains(floorTile.GetComponent<SCR_NodeBase>()))
-            {
-                RandomSpawnChance(floorTile);
-            }
-        }
-    }
+    #endregion
 
     private void RandomSpawnChance(GameObject floorTile, bool markAssetPlaced = false)
     {
+        //Random is used to have odds for whether an asset is placed or not
         var randomNumber = Random.Range(minimumRandomSpawnNumber, maximumRandomSpawnNumber);
         if(randomNumber <= randomSpawnNumber && !CheckTileNotStartOrEndDoor(floorTile))
         {
             SpawnAsset(floorTile);
             if(markAssetPlaced)
             {
+                //If path is generated after this the tile is marked as not walkable so it is pathfinded around instead of through
                 markTileNotWalkable(floorTile);
             }
         }
@@ -89,6 +103,7 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
         playerAgentInstance.FindPath();
     }
     
+    //Check to make sure that assets are not placed on the start or end doors as this causes paths to not work
     private bool CheckTileNotStartOrEndDoor(GameObject floorTile)
     {
         if(floorTile.name.Contains("Door"))
