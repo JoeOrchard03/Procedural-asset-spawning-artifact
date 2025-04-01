@@ -1,9 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Android.Gradle.Manifest;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
+
+/***************************************************************************************
+*Title: Pathfinding - Understanding A * (A star)
+*Author: Tarodev https://www.youtube.com/@Tarodev
+*Date: 16 / 11 / 2021
+*Availability youtube tutorial link: https://www.youtube.com/watch?v=i0x5fj4PqP4&t=255s
+*Availability git link: https://github.com/Matthew-J-Spencer/Pathfinding/blob/main/_Scripts/Pathfinding.cs
+***************************************************************************************/
 
 public static class SCR_Pathfinding
 {
@@ -61,15 +70,10 @@ public static class SCR_Pathfinding
                 return path;
             }
 
-            if (current.Neighbours == null)
-            {
-                Debug.LogError($"Node {current} has a null Neighbours list!");
-                return null;
-            }
-
             //Checks non processed neighbours of the cheapest movement cost node
-            foreach (var neighbour in current.Neighbours.Where(node => !processed.Contains(node)))
+            foreach (var neighbour in current.Neighbours.Where(node => node.walkable && !processed.Contains(node)))
             {
+                Debug.Log("Node found");
                 var inSearch = toSearch.Contains(neighbour);
 
                 //calculates the cost to get to the neighbour from the current best node

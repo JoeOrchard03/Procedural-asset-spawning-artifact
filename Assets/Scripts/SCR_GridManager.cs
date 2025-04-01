@@ -21,20 +21,24 @@ public class SCR_GridManager : MonoBehaviour
 
         foreach (GameObject tile in floorTileObjs)
         {
+            tile.GetComponent<SCR_PossiblePathNode>().walkable = true;
             tile.GetComponent<SCR_PossiblePathNode>().CacheNeighbors();
             tileCounter++;
             tile.name += " " + tileCounter.ToString();
         }
     }
 
-    public SCR_NodeBase GetTileAtPosition(Vector2 pos)
+    public SCR_NodeBase GetTileAtPosition(Vector2 pos, bool corridorTiles = false)
     {
         tilePosition = pos;
 
         Vector3 rayOrigin = new Vector3(pos.x, pos.y, -10.0f);
 
-        //Debug.DrawRay(rayOrigin, new Vector3(0,0,1) * 20.0f, Color.blue, Mathf.Infinity);
-
+        if(corridorTiles)
+        {
+            Debug.DrawRay(rayOrigin, new Vector3(0, 0, 1) * 20.0f, Color.blue, Mathf.Infinity);
+        }
+        
         RaycastHit hit;
 
         if (Physics.Raycast(rayOrigin, new Vector3(0, 0, 1), out hit, Mathf.Infinity))

@@ -23,6 +23,8 @@ public abstract class SCR_NodeBase : MonoBehaviour
     //F score total of G score and H score, first score checked to determine next moe
     public float F => G + H;
 
+    public bool walkable = true;
+
     //Setting the connction of the current node
     public void SetConnection(SCR_NodeBase nodeBase)
     {

@@ -194,13 +194,13 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
     private Vector2Int FindClosestPointTo(Vector2Int currentRoomCenter, List<Vector2Int> roomCenters)
     {
         Vector2Int closest = Vector2Int.zero;
-        float distance = float.MaxValue;
+        int distance = int.MaxValue;
         foreach(var position in roomCenters)
         {
             //distance from one of the room centre positions to the current room centre
-            float currentDistance = Vector2.Distance(position, currentRoomCenter);
+            int currentDistance = Mathf.Abs(position.x - currentRoomCenter.x) + Mathf.Abs(position.y - currentRoomCenter.y);
             //if the current distance is smaller then distance
-            if(currentDistance < distance)
+            if (currentDistance < distance)
             {
                 distance = currentDistance;
                 closest = position;
