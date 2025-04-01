@@ -85,13 +85,13 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
 
     private IEnumerator GetPossiblePaths(HashSet<Vector2Int> floor, bool generatePath)
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.1f);
         gridManagerInstance = GameObject.Find("GridManager").GetComponent<SCR_GridManager>();
         gridManagerInstance.floorTiles = floor;
         gridManagerInstance.GetNeighbours();
         //Debug.Log("gridManagerInstance populated with floor pieces");
 
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.1f);
         //Debug.Log("Getting possible paths");
         if(generatePath)
         {

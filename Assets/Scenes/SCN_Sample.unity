@@ -841,7 +841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93e3fbfcd9d97e643bb5239956e67669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkable: 0
+  walkable: 1
   gridManagerInstance: {fileID: 0}
 --- !u!1 &777681986
 GameObject:
@@ -888,7 +888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93e3fbfcd9d97e643bb5239956e67669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkable: 0
+  walkable: 1
   gridManagerInstance: {fileID: 0}
 --- !u!1 &987228983
 GameObject:
@@ -1269,7 +1269,7 @@ GameObject:
   - component: {fileID: 1468210805}
   m_Layer: 5
   m_Name: PathFirstAssetPlacement
-  m_TagString: Untagged
+  m_TagString: assetPlacementAlgoOBJ
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1408,6 +1408,10 @@ MonoBehaviour:
   minimumRandomSpawnNumber: 0
   maximumRandomSpawnNumber: 11
   randomSpawnNumber: 1
+  repeatingTest: 1
+  numberOfRepetitions: 200
+  numberOfSuccessfulIterations: 0
+  typeOfAssetPlacement: 
 --- !u!1 &1517300325
 GameObject:
   m_ObjectHideFlags: 0
@@ -2020,7 +2024,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floorTileObjs: []
-  tileCounter: 0
 --- !u!4 &1975063078
 Transform:
   m_ObjectHideFlags: 0

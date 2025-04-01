@@ -19,7 +19,6 @@ public abstract class SCR_AbstractDungeonGen : MonoBehaviour
 
     public void GenerateDungeon(bool generatePath)
     {
-        Debug.Log("Generating dungeon with generate path set to: " + generatePath);
         tilemapVisualizer.Clear();
         RunProcGen(generatePath);
     }

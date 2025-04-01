@@ -11,7 +11,6 @@ public class SCR_GridManager : MonoBehaviour
 
     public GameObject[] floorTileObjs;
 
-    public int tileCounter;
 
     private Vector2 tilePosition;
 
@@ -23,8 +22,6 @@ public class SCR_GridManager : MonoBehaviour
         {
             tile.GetComponent<SCR_PossiblePathNode>().walkable = true;
             tile.GetComponent<SCR_PossiblePathNode>().CacheNeighbors();
-            tileCounter++;
-            tile.name += " " + tileCounter.ToString();
         }
     }
 

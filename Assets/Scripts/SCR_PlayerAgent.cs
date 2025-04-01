@@ -34,22 +34,18 @@ public class SCR_PlayerAgent : MonoBehaviour
     public void FindPath()
     {
         pathNodes = SCR_Pathfinding.FindPath(startNode.GetComponent<SCR_NodeBase>(), goalNode.GetComponent<SCR_NodeBase>());
-        if(pathNodes == null)
-        {
-            Debug.Log("path not found / empty");
-        }
     }
 
     public void StartToEndGoalDistance()
     {
         startNodePos = startNode.transform.position;
         goalNodePos = goalNode.transform.position;
-        Debug.Log("Start node is located at: " + startNodePos);
-        Debug.Log("Goal node is located at: " +  goalNodePos);
+        //Debug.Log("Start node is located at: " + startNodePos);
+        //Debug.Log("Goal node is located at: " +  goalNodePos);
         startToEndDistanceX = goalNodePos.x - startNodePos.x;
         startToEndDistanceY = goalNodePos.y - startNodePos.y;
         var StartToEndDistance = new Vector2(startToEndDistanceX, startToEndDistanceY);
-        Debug.Log("Distance from start to end is: " + StartToEndDistance);
+        //Debug.Log("Distance from start to end is: " + StartToEndDistance);
     }
 
 

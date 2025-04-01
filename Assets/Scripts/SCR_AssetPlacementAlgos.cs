@@ -17,13 +17,43 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
 
     private List<SCR_NodeBase> corridorTiles = new List<SCR_NodeBase>();
 
+    [SerializeField] bool repeatingTest = false;
+    [SerializeField] public int numberOfRepetitions = 3;
+    [SerializeField] public int numberOfSuccessfulIterations; 
+    [SerializeField] public string typeOfAssetPlacement;
+
     #region "Path first generation/placement"
     public void GenerateDungeonPathFirst()
     {
         Debug.Log("Generating dungeon");
+        typeOfAssetPlacement = "Path first asset placement";
         //Generate dungeon and path
-        roomFirstGeneratorInstance.GenerateDungeon(true);
-        Invoke(nameof(CheckTilesNotInPath), 1.5f);
+        if(repeatingTest)
+        {
+            StartCoroutine(PathFirstGenerationRepeating());
+        }
+        else
+        {
+            roomFirstGeneratorInstance.GenerateDungeon(true);
+            Invoke(nameof(CheckTilesNotInPath), 1.5f);
+        } 
+    }
+
+    private IEnumerator PathFirstGenerationRepeating()
+    {
+        for(int i = 0; i < numberOfRepetitions; i++)
+        {
+            if(i == 0)
+            {
+                numberOfSuccessfulIterations = 0;
+            }
+            Debug.Log("Running path first placement, generation number: " + (i + 1));
+            roomFirstGeneratorInstance.GenerateDungeon(true);
+            yield return new WaitForSeconds(0.5f);
+            CheckTilesNotInPath();
+            yield return new WaitForSeconds(0.25f);
+        }
+        Debug.Log($"Path first placement has suceeded {numberOfSuccessfulIterations} times out of {numberOfRepetitions} iterations!");
     }
 
     private void CheckTilesNotInPath()
@@ -45,9 +75,36 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
     public void GenerateDungeonCorridorsConsidered()
     {
         //Generates dungeon without path
-        roomFirstGeneratorInstance.GenerateDungeon(false);
-        Invoke(nameof(CheckTilesNotInCorridor), 0.5f);
-        Invoke(nameof(GeneratePath), 1.5f);
+        typeOfAssetPlacement = "Corridor considered asset placement";
+        if (repeatingTest)
+        {
+            StartCoroutine(CorridorConsideredGenerationRepeating());
+        }
+        else
+        {
+            roomFirstGeneratorInstance.GenerateDungeon(false);
+            Invoke(nameof(CheckTilesNotInCorridor), 0.5f);
+            Invoke(nameof(GeneratePath), 1.5f);
+        }
+    }
+
+    private IEnumerator CorridorConsideredGenerationRepeating()
+    {
+        for (int i = 0; i < numberOfRepetitions; i++)
+        {
+            if (i == 0)
+            {
+                numberOfSuccessfulIterations = 0;
+            }
+            Debug.Log("Running corridor considered placement, generation number: " + (i + 1));
+            roomFirstGeneratorInstance.GenerateDungeon(false);
+            yield return new WaitForSeconds(0.25f);
+            CheckTilesNotInCorridor();
+            yield return new WaitForSeconds(0.25f);
+            GeneratePath();
+            yield return new WaitForSeconds(0.25f);
+        }
+        Debug.Log($"Corridor considered placement has suceeded {numberOfSuccessfulIterations} times out of {numberOfRepetitions} iterations!");
     }
 
     private void CheckTilesNotInCorridor()
@@ -56,7 +113,7 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
         foreach(var tilePosition in roomFirstGeneratorInstance.corridors)
         {
             corridorTiles.Add(gridManagerInstance.GetTileAtPosition(tilePosition + new Vector2(0.5f, 0.5f), true));
-            Debug.Log("Adding tile: " + gridManagerInstance.GetTileAtPosition(tilePosition).gameObject.name + " to corridor tiles"); 
+            //Debug.Log("Adding tile: " + gridManagerInstance.GetTileAtPosition(tilePosition).gameObject.name + " to corridor tiles"); 
         }
 
         foreach (GameObject floorTile in gridManagerInstance.floorTileObjs)
@@ -75,9 +132,36 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
 
     public void GeneratePlaceAssetsRandomly()
     {
-        roomFirstGeneratorInstance.GenerateDungeon(false);
-        Invoke(nameof(PlaceAssetsRandomly), 1.0f);
-        Invoke(nameof(GeneratePath), 1.5f);
+        typeOfAssetPlacement = "Random asset placement";
+        if (repeatingTest)
+        {
+            StartCoroutine(RandomPlacementRepeating());
+        }
+        else
+        {
+            roomFirstGeneratorInstance.GenerateDungeon(false);
+            Invoke(nameof(PlaceAssetsRandomly), 0.5f);
+            Invoke(nameof(GeneratePath), 1.5f);
+        }
+    }
+
+    private IEnumerator RandomPlacementRepeating()
+    {
+        for (int i = 0; i < numberOfRepetitions; i++)
+        {
+            if (i == 0)
+            {
+                numberOfSuccessfulIterations = 0;
+            }
+            Debug.Log("Running random placement, generation number: " + (i + 1));
+            roomFirstGeneratorInstance.GenerateDungeon(false);
+            yield return new WaitForSeconds(0.5f);
+            PlaceAssetsRandomly();
+            yield return new WaitForSeconds(0.25f);
+            GeneratePath();
+            yield return new WaitForSeconds(0.25f);
+        }
+        Debug.Log($"Random placement has suceeded {numberOfSuccessfulIterations} times out of {numberOfRepetitions} iterations!");
     }
 
     private void PlaceAssetsRandomly()
@@ -113,7 +197,7 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
 
     private void SpawnAsset(GameObject floorTile)
     {
-        Debug.Log("Spawning asset on: " + floorTile.name);
+        //Debug.Log("Spawning asset on: " + floorTile.name);
         Instantiate(assetPlaceHolder, floorTile.transform);
     }
 

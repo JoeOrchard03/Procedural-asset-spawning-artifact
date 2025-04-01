@@ -11,6 +11,7 @@ TagManager:
   - StartNode
   - EndNode
   - tile
+  - assetPlacementAlgoOBJ
   layers:
   - Default
   - TransparentFX

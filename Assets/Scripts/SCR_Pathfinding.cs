@@ -1,10 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Android.Gradle.Manifest;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
+
 
 /***************************************************************************************
 *Title: Pathfinding - Understanding A * (A star)
@@ -19,6 +16,8 @@ public static class SCR_Pathfinding
     // Start is called before the first frame update
     public static List<SCR_NodeBase> FindPath(SCR_NodeBase startNodePrefab, SCR_NodeBase goalNodePrefab)
     {
+        string typeOfAssetPlacement = GameObject.FindGameObjectWithTag("assetPlacementAlgoOBJ").GetComponent<SCR_AssetPlacementAlgos>().typeOfAssetPlacement;
+
         SCR_NodeBase startNode = getTile(startNodePrefab);
         SCR_NodeBase goalNode = getTile(goalNodePrefab);
 
@@ -66,36 +65,38 @@ public static class SCR_Pathfinding
                 }
 
                 //Returns the completed path
-                Debug.Log("Returning a completed path, goal found");
+                Debug.Log($"{typeOfAssetPlacement} generation made a complete path, iteration succeeded");
+                GameObject.FindGameObjectWithTag("assetPlacementAlgoOBJ").GetComponent<SCR_AssetPlacementAlgos>().numberOfSuccessfulIterations++;
                 return path;
             }
 
-            //Checks non processed neighbours of the cheapest movement cost node
-            foreach (var neighbour in current.Neighbours.Where(node => node.walkable && !processed.Contains(node)))
-            {
-                Debug.Log("Node found");
-                var inSearch = toSearch.Contains(neighbour);
-
-                //calculates the cost to get to the neighbour from the current best node
-                var costToNeighbour = current.G + current.GetDistance(neighbour);
-
-                //If the new calculated cost is less then the current G cost of the neighbour update it
-                if (!inSearch || costToNeighbour < neighbour.G)
+            if(current.Neighbours!= null)
+            { //Checks non processed neighbours of the cheapest movement cost node
+                foreach (var neighbour in current.Neighbours.Where(node => node.walkable && !processed.Contains(node)))
                 {
-                    neighbour.SetG(costToNeighbour);
-                    //Sets that neighbours connection to the current node to be able to retrack the path after the route is found
-                    neighbour.SetConnection(current);
+                    var inSearch = toSearch.Contains(neighbour);
 
-                    if (!inSearch)
+                    //calculates the cost to get to the neighbour from the current best node
+                    var costToNeighbour = current.G + current.GetDistance(neighbour);
+
+                    //If the new calculated cost is less then the current G cost of the neighbour update it
+                    if (!inSearch || costToNeighbour < neighbour.G)
                     {
-                        //Update the H cost and add it to be searched if it has not been yet
-                        neighbour.SetH(neighbour.GetDistance(goalNode));
-                        toSearch.Add(neighbour);
+                        neighbour.SetG(costToNeighbour);
+                        //Sets that neighbours connection to the current node to be able to retrack the path after the route is found
+                        neighbour.SetConnection(current);
+
+                        if (!inSearch)
+                        {
+                            //Update the H cost and add it to be searched if it has not been yet
+                            neighbour.SetH(neighbour.GetDistance(goalNode));
+                            toSearch.Add(neighbour);
+                        }
                     }
                 }
             }
         }
-        Debug.Log("path being returned is null");
+        Debug.Log($"{typeOfAssetPlacement} generation made a null path, iteration failed");
         return null;
     }
 
