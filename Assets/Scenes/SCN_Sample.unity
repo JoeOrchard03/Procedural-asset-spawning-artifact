@@ -505,9 +505,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 485977611}
-        m_TargetAssemblyTypeName: SCR_AbstractDungeonGen, Scripts
-        m_MethodName: GenerateDungeon
+      - m_Target: {fileID: 1468210805}
+        m_TargetAssemblyTypeName: SCR_AssetPlacementAlgos, Scripts
+        m_MethodName: GeneratePlaceAssetsRandomly
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -23,7 +23,7 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
         Debug.Log("Generating dungeon");
         //Generate dungeon and path
         roomFirstGeneratorInstance.GenerateDungeon(true);
-        Invoke(nameof(CheckTilesNotInPath), 3.0f);
+        Invoke(nameof(CheckTilesNotInPath), 1.5f);
     }
 
     private void CheckTilesNotInPath()
@@ -66,6 +66,25 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
             {
                 RandomSpawnChance(floorTile, true);
             }
+        }
+    }
+
+    #endregion
+
+    #region "Place assets completely randomly"
+
+    public void GeneratePlaceAssetsRandomly()
+    {
+        roomFirstGeneratorInstance.GenerateDungeon(false);
+        Invoke(nameof(PlaceAssetsRandomly), 1.0f);
+        Invoke(nameof(GeneratePath), 1.5f);
+    }
+
+    private void PlaceAssetsRandomly()
+    {
+        foreach (GameObject floorTile in gridManagerInstance.floorTileObjs)
+        {
+            RandomSpawnChance(floorTile, true);
         }
     }
 
