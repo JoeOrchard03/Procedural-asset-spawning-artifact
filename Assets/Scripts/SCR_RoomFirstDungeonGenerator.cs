@@ -99,26 +99,6 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
         }
     }
 
-
-    protected override void PathFindingAgentStep()
-    {
-        Debug.Log("AGENT STEPPING");
-    }
-
-    private Vector2Int Vector3ToVector2Int(Vector3 vectorToConvert)
-    {
-        int roundedX = (int)Math.Round(vectorToConvert.x);
-        int roundedY = (int)Math.Round(vectorToConvert.y);
-        var converetedVector = new Vector2Int(roundedX, roundedY);
-        return converetedVector;
-    }
-
-    private Vector3 Vector2IntToVector3(Vector2Int vectorToConvert)
-    {
-        var convertedVector = new Vector3(vectorToConvert.x, vectorToConvert.y, 0);
-        return convertedVector;
-    }
-
     private HashSet<Vector2Int> CreateRoomsRandomly(List<BoundsInt> roomsList)
     {
         HashSet<Vector2Int> floor = new HashSet<Vector2Int>();

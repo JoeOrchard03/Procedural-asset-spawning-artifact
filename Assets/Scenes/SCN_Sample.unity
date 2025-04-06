@@ -119,57 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &84559705
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 84559706}
-  - component: {fileID: 84559707}
-  m_Layer: 0
-  m_Name: CorridorFirstGen
-  m_TagString: CorridorFirstGenerator
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &84559706
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 84559705}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &84559707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 84559705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d1760106085b6045a90a4aac190329c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tilemapVisualizer: {fileID: 1907896821}
-  startPos: {x: 0, y: 0}
-  randomWalkParameters: {fileID: 11400000, guid: 5ce7a28859691904ea07ba5c226ed791,
-    type: 2}
-  corridorLength: 25
-  corridorCount: 10
-  roomPercent: 0.5
 --- !u!1 &91473202
 GameObject:
   m_ObjectHideFlags: 0
@@ -983,54 +932,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &1233039048
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1233039049}
-  - component: {fileID: 1233039050}
-  m_Layer: 0
-  m_Name: RandomWalkDungeonGenerator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1233039049
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1233039048}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1233039050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1233039048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc65998c3b5168549b8bc0c1f58568e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tilemapVisualizer: {fileID: 1907896821}
-  startPos: {x: 0, y: 0}
-  randomWalkParameters: {fileID: 11400000, guid: 5ce7a28859691904ea07ba5c226ed791,
-    type: 2}
 --- !u!1 &1295406147
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,7 +1309,7 @@ MonoBehaviour:
   minimumRandomSpawnNumber: 0
   maximumRandomSpawnNumber: 11
   randomSpawnNumber: 1
-  repeatingTest: 1
+  repeatingTest: 0
   numberOfRepetitions: 200
   numberOfSuccessfulIterations: 0
   typeOfAssetPlacement: 
@@ -28646,12 +28547,10 @@ SceneRoots:
   m_Roots:
   - {fileID: 658813740}
   - {fileID: 987228985}
-  - {fileID: 1233039049}
   - {fileID: 91473206}
   - {fileID: 1618908889}
   - {fileID: 1746218069}
   - {fileID: 1907896822}
-  - {fileID: 84559706}
   - {fileID: 485977612}
   - {fileID: 1295406149}
   - {fileID: 1935800814}

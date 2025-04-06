@@ -1,72 +1,72 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection.Emit;
-using NUnit.Framework;
-using UnityEditor.VersionControl;
-using UnityEngine;
-using UnityEngine.TestTools;
-using static UnityEngine.Analytics.IAnalytic;
+//using System;
+//using System.Collections;
+//using System.Collections.Generic;
+//using System.Reflection.Emit;
+//using NUnit.Framework;
+//using UnityEditor.VersionControl;
+//using UnityEngine;
+//using UnityEngine.TestTools;
+//using static UnityEngine.Analytics.IAnalytic;
 
-public class TEST_CorridorFirstDungeonGen
-{
-    private SCR_CorridorFirstDungeonGen scriptTestInstance;
+//public class TEST_CorridorFirstDungeonGen
+//{
+//    private SCR_CorridorFirstDungeonGen scriptTestInstance;
 
-    [SetUp]
-    public void SetUp()
-    {
-        scriptTestInstance = new GameObject().AddComponent<SCR_CorridorFirstDungeonGen>();
-    }
+//    [SetUp]
+//    public void SetUp()
+//    {
+//        scriptTestInstance = new GameObject().AddComponent<SCR_CorridorFirstDungeonGen>();
+//    }
 
-    [UnityTest]
-    public IEnumerator CorridorLengthCalculatedCorrectly_Test()
-    {
-        HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
-        HashSet<Vector2Int> potentialRoomPositions = new HashSet<Vector2Int>();
-        List<List<Vector2Int>> corridors = scriptTestInstance.CreateCorridors(floorPositions, potentialRoomPositions);
+//    [UnityTest]
+//    public IEnumerator CorridorLengthCalculatedCorrectly_Test()
+//    {
+//        HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
+//        HashSet<Vector2Int> potentialRoomPositions = new HashSet<Vector2Int>();
+//        List<List<Vector2Int>> corridors = scriptTestInstance.CreateCorridors(floorPositions, potentialRoomPositions);
 
-        foreach (var corridor in corridors)
-        {
-            // Add one to account for random walk script adding the starting position of the corridor to the count
-            Assert.AreEqual(scriptTestInstance.corridorLength + 1, corridor.Count, "Corridor length does not match expected value");
-        }
+//        foreach (var corridor in corridors)
+//        {
+//            // Add one to account for random walk script adding the starting position of the corridor to the count
+//            Assert.AreEqual(scriptTestInstance.corridorLength + 1, corridor.Count, "Corridor length does not match expected value");
+//        }
 
-        yield return null;
-    }
+//        yield return null;
+//    }
 
-    [UnityTest]
-    public IEnumerator DeadEndDetection_Test()
-    {
-        HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>
-        {
-            new Vector2Int(0, 0),
-            new Vector2Int(1, 0),
-            new Vector2Int(2, 0),
-        };
+//    [UnityTest]
+//    public IEnumerator DeadEndDetection_Test()
+//    {
+//        HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>
+//        {
+//            new Vector2Int(0, 0),
+//            new Vector2Int(1, 0),
+//            new Vector2Int(2, 0),
+//        };
 
-        List<Vector2Int> deadEnds = scriptTestInstance.FindAllDeadEnds(floorPositions);
+//        List<Vector2Int> deadEnds = scriptTestInstance.FindAllDeadEnds(floorPositions);
 
-        //(2,0) is a dead end because it only has a floor position in one of the cardinal directions
-        Assert.IsTrue(deadEnds.Contains(new Vector2Int(2, 0)), "Dead end detection failed");
+//        //(2,0) is a dead end because it only has a floor position in one of the cardinal directions
+//        Assert.IsTrue(deadEnds.Contains(new Vector2Int(2, 0)), "Dead end detection failed");
 
-        yield return null;
-    }
+//        yield return null;
+//    }
 
-    [UnityTest]
-    public IEnumerator CorridorContainsLastCorridorEndTile_Test()
-    {
-        HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
-        HashSet<Vector2Int> potentialRoomPositions = new HashSet<Vector2Int>();
-        List<List<Vector2Int>> corridors = scriptTestInstance.CreateCorridors(floorPositions, potentialRoomPositions);
+//    [UnityTest]
+//    public IEnumerator CorridorContainsLastCorridorEndTile_Test()
+//    {
+//        HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
+//        HashSet<Vector2Int> potentialRoomPositions = new HashSet<Vector2Int>();
+//        List<List<Vector2Int>> corridors = scriptTestInstance.CreateCorridors(floorPositions, potentialRoomPositions);
 
-        var previousCorridor = corridors[0];
-        for (int i = 1; i < corridors.Count; i++)
-        {
-            var corridor = corridors[i];
-            Assert.IsTrue(corridor[0] == previousCorridor[previousCorridor.Count -1]);
-            previousCorridor = corridor;
-        }
+//        var previousCorridor = corridors[0];
+//        for (int i = 1; i < corridors.Count; i++)
+//        {
+//            var corridor = corridors[i];
+//            Assert.IsTrue(corridor[0] == previousCorridor[previousCorridor.Count -1]);
+//            previousCorridor = corridor;
+//        }
 
-        yield return null;
-    }
-}
+//        yield return null;
+//    }
+//}

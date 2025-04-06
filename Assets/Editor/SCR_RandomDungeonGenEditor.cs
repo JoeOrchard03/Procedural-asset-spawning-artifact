@@ -29,10 +29,5 @@ public class SCR_RandomDungeonGenEditor : Editor
         {
             generator.GenerateDungeon(true);
         }
-        if (GUILayout.Button("Agent Step"))
-        {
-            generator.AgentStep();
-        }
-
     }
 }

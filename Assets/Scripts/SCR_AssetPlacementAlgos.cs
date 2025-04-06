@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class SCR_AssetPlacementAlgos : MonoBehaviour
 {
-    // Start is called before the first frame update
-
     [SerializeField] SCR_RoomFirstDungeonGenerator roomFirstGeneratorInstance;
     [SerializeField] SCR_PlayerAgent playerAgentInstance;
     [SerializeField] SCR_GridManager gridManagerInstance;
     [SerializeField] GameObject assetPlaceHolder;
 
+    [Header("Variables controlling asset spawn chance")]
     [SerializeField] float minimumRandomSpawnNumber = 0;
     [SerializeField] float maximumRandomSpawnNumber = 11;
     [SerializeField] float randomSpawnNumber = 3;
 
     private List<SCR_NodeBase> corridorTiles = new List<SCR_NodeBase>();
 
+    [Header("Variables controlling whether tests repeat and how many times")]
     [SerializeField] bool repeatingTest = false;
     [SerializeField] public int numberOfRepetitions = 3;
     [SerializeField] public int numberOfSuccessfulIterations; 
@@ -41,16 +41,21 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
 
     private IEnumerator PathFirstGenerationRepeating()
     {
-        for(int i = 0; i < numberOfRepetitions; i++)
+        for (int i = 0; i < numberOfRepetitions; i++)
         {
-            if(i == 0)
+            //Resets number of succesful iterations
+            if (i == 0)
             {
                 numberOfSuccessfulIterations = 0;
             }
+            //Tracks what iteration it is on
             Debug.Log("Running path first placement, generation number: " + (i + 1));
+            //generates dungeon and path
             roomFirstGeneratorInstance.GenerateDungeon(true);
+            //waits half a second to make sure it does not overlap with dungeon being generated
             yield return new WaitForSeconds(0.5f);
             CheckTilesNotInPath();
+            //waits so there is a chance to see the assets placed before moving on to next iteration
             yield return new WaitForSeconds(0.25f);
         }
         Debug.Log($"Path first placement has suceeded {numberOfSuccessfulIterations} times out of {numberOfRepetitions} iterations!");
@@ -63,6 +68,7 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
             //Checking that the path does not contain the nodes that will be considered for asset placement
             if (!playerAgentInstance.pathNodes.Contains(floorTile.GetComponent<SCR_NodeBase>()))
             {
+                //If not decide whether or not to spawn an asset on the given tile
                 RandomSpawnChance(floorTile);
             }
         }
@@ -154,10 +160,12 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
                 numberOfSuccessfulIterations = 0;
             }
             Debug.Log("Running random placement, generation number: " + (i + 1));
+            //Generate dungeon without path
             roomFirstGeneratorInstance.GenerateDungeon(false);
             yield return new WaitForSeconds(0.5f);
             PlaceAssetsRandomly();
             yield return new WaitForSeconds(0.25f);
+            //generate path after assets have been placed
             GeneratePath();
             yield return new WaitForSeconds(0.25f);
         }
@@ -166,6 +174,7 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
 
     private void PlaceAssetsRandomly()
     {
+        //Randomly places assets across all floor tiles
         foreach (GameObject floorTile in gridManagerInstance.floorTileObjs)
         {
             RandomSpawnChance(floorTile, true);
@@ -183,7 +192,6 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
             SpawnAsset(floorTile);
             if(markAssetPlaced)
             {
-                //If path is generated after this the tile is marked as not walkable so it is pathfinded around instead of through
                 markTileNotWalkable(floorTile);
             }
         }
@@ -191,13 +199,14 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
 
     private void markTileNotWalkable(GameObject floorTile)
     {
+        //If path is generated after this the tile is marked as not walkable so it is pathfinded around instead of through
         SCR_NodeBase tileNodeBase = floorTile.GetComponent<SCR_NodeBase>();
         tileNodeBase.walkable = false;
     }
 
     private void SpawnAsset(GameObject floorTile)
     {
-        //Debug.Log("Spawning asset on: " + floorTile.name);
+        //Spawn a place holder to represent an asset on the floor tiles position 
         Instantiate(assetPlaceHolder, floorTile.transform);
     }
 

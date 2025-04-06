@@ -48,9 +48,4 @@ public class SCR_RandomWalkDungeonGenerator : SCR_AbstractDungeonGen
         }
         return floorPositions;
     }
-
-    protected override void PathFindingAgentStep()
-    {
-        Debug.Log("Agent stepping");
-    }
 }
