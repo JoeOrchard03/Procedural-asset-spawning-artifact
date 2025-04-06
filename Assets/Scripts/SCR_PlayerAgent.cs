@@ -8,28 +8,9 @@ public class SCR_PlayerAgent : MonoBehaviour
     [SerializeField]
     private GameObject startNode, goalNode;
     private Vector3 startNodePos, goalNodePos;
-    private float startToEndDistanceX, startToEndDistanceY, currentToStartDistance, currentToGoalDistance;
+    private float startToEndDistanceX, startToEndDistanceY;
 
     [SerializeField] public List<SCR_NodeBase> pathNodes;
-    // Start is called before the first frame update
-    public void AgentStep()
-    {
-        //Debug.Log("Agent moving");
-        //GameObject[] possiblePaths = GameObject.FindGameObjectsWithTag("PathPrefab");
-        //foreach (GameObject possiblePath in possiblePaths)
-        //{
-        //    Debug.Log("Found object: " + possiblePath.name);
-        //    SCR_PossiblePathNode pathNodeScriptRef = possiblePath.gameObject.GetComponent<SCR_PossiblePathNode>();
-        //    if(pathNodeScriptRef != null)
-        //    {
-        //        possiblePath.GetComponent<SCR_PossiblePathNode>().SetPlayerReference();
-        //        possiblePath.GetComponent<SCR_PossiblePathNode>().CalculatePathScores();
-        //    }
-        //    else { Debug.Log("path node script not found, NEE NORRRR NEE NORRRRRRRRR!!!!!!!"); }
-        //}
-
-        //gameObject.transform.position = startNodePos;
-    }
 
     public void FindPath()
     {
