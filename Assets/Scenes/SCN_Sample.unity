@@ -1301,9 +1301,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f14b0dbddc36f4db838b0e3f4dc9ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomFirstGeneratorInstance: {fileID: 485977611}
-  playerAgentInstance: {fileID: 1935800815}
-  gridManagerInstance: {fileID: 1975063077}
+  roomFirstGen: {fileID: 485977611}
+  playerAgent: {fileID: 1935800815}
+  gridManagerInst: {fileID: 1975063077}
   assetPlaceHolder: {fileID: 2353578339992173289, guid: 8fc1442fb6a6b17469deec6c802a0bbb,
     type: 3}
   minimumRandomSpawnNumber: 0

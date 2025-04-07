@@ -25,7 +25,7 @@ public class SCR_PossiblePathNode : SCR_NodeBase
             Vector2 currentPos = new Vector2(transform.position.x, transform.position.y);
             //Debug.Log($"{gameObject.transform.name} current position is: {currentPos}");
             //Debug.Log("raycast position is: " + new Vector2(transform.position.x + dir.x, transform.position.y + dir.y));
-            var tile = gridManagerInstance.GetTileAtPosition(new Vector2(transform.position.x + dir.x, transform.position.y + dir.y));
+            var tile = gridManagerInstance.GetTileAtPos(new Vector2(transform.position.x + dir.x, transform.position.y + dir.y));
             if (tile != null)
             {
                 //Debug.Log($"tile that has been found is: {tile.gameObject.name}");

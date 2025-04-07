@@ -25,7 +25,7 @@ public class SCR_GridManager : MonoBehaviour
         }
     }
 
-    public SCR_NodeBase GetTileAtPosition(Vector2 pos, bool corridorTiles = false)
+    public SCR_NodeBase GetTileAtPos(Vector2 pos, bool corridorTiles = false)
     {
         tilePosition = pos;
 
