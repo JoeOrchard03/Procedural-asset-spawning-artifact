@@ -4,11 +4,10 @@ import scipy.stats as stats
 import matplotlib.pyplot as pyplot
 from scipy.stats import fisher_exact
 
-# Simulated observed results (replace with your real values if you have them)
-# Each algorithm tested 200 times
+# Each algorithm was tested 200 times
 # Format: [passes, fails]
 results = {
-    "PathFirst": [200, 0],         # Example: 160 passes, 40 fails
+    "PathFirst": [200, 0],     
     "CorridorConsidered": [200, 0],
     "Random": [1, 199]
 }
@@ -20,7 +19,7 @@ observed = np.array([
     results["Random"]
 ])
 
-# Perform Chi-Square Test of Independence
+# Run Chi-square test
 chi2, p, dof, expected = stats.chi2_contingency(observed)
 
 # Print results
