@@ -6,6 +6,14 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 
+/***************************************************************************************
+*Title: Pathfinding - Understanding A * (A star)
+*Author: Tarodev https://www.youtube.com/@Tarodev
+*Date: 16 / 11 / 2021
+*Availability youtube tutorial link: https://www.youtube.com/watch?v=i0x5fj4PqP4&t=255s
+*Availability git link: https://github.com/Matthew-J-Spencer/Pathfinding/blob/main/_Scripts/Tiles/SquareNode.cs
+***************************************************************************************/
+
 public class SCR_PossiblePathNode : SCR_NodeBase
 {
     //[SerializeField] TMP_Text GScoreText, HScoreText, FScoreText;
