@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class SCR_AssetPlacementAlgos : MonoBehaviour
 {
-    [SerializeField] SCR_RoomFirstDungeonGenerator roomFirstGen;
-    [SerializeField] SCR_PlayerAgent playerAgent;
-    [SerializeField] SCR_GridManager gridManagerInst;
-    [SerializeField] GameObject assetPlaceHolder;
+    [SerializeField] public SCR_RoomFirstDungeonGenerator roomFirstGen;
+    [SerializeField] public SCR_PlayerAgent playerAgent;
+    [SerializeField] public SCR_GridManager gridManagerInst;
+    [SerializeField] public GameObject assetPlaceHolder;
 
     [Header("Variables controlling asset spawn chance")]
-    [SerializeField] float minimumRandomSpawnNumber = 0;
-    [SerializeField] float maximumRandomSpawnNumber = 11;
-    [SerializeField] float randomSpawnNumber = 3;
+    [SerializeField] public float minimumRandomSpawnNumber = 0;
+    [SerializeField] public float maximumRandomSpawnNumber = 11;
+    [SerializeField] public float randomSpawnNumber = 3;
 
     private List<SCR_NodeBase> corridorTiles = new List<SCR_NodeBase>();
 
@@ -183,7 +183,7 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
 
     #endregion
 
-    private void RandomSpawnChance(GameObject floorTile, bool markAssetPlaced = false)
+    public void RandomSpawnChance(GameObject floorTile, bool markAssetPlaced = false)
     {
         //Random is used to have odds for whether an asset is placed or not
         var randomNumber = Random.Range(minimumRandomSpawnNumber, maximumRandomSpawnNumber);
@@ -204,7 +204,7 @@ public class SCR_AssetPlacementAlgos : MonoBehaviour
         tileNodeBase.walkable = false;
     }
 
-    private void SpawnAsset(GameObject floorTile)
+    public void SpawnAsset(GameObject floorTile)
     {
         //Spawn a place holder to represent an asset on the floor tiles position 
         Instantiate(assetPlaceHolder, floorTile.transform);

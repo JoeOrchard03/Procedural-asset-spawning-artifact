@@ -72,15 +72,17 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
             roomCenters.Add((Vector2Int)Vector3Int.RoundToInt(room.center));
         }
 
-        FindBottomLeftRoom(roomsList);
-        FindTopRightRoom(roomsList);
-        corridors = ConnectRooms(roomCenters);
-        floor.UnionWith(corridors);
-        tilemapVisualizer.PaintFloorTiles(floor);
-        SCR_WallGen.CreateWalls(floor, tilemapVisualizer);
-        playerAgent.GetComponent<SCR_PlayerAgent>().StartToEndGoalDistance();
+        if (roomsList.Count == 0 || roomsList == null) { Debug.Log("Rooms list is null");
+            FindBottomLeftRoom(roomsList);
+            FindTopRightRoom(roomsList);
+            corridors = ConnectRooms(roomCenters);
+            floor.UnionWith(corridors);
+            tilemapVisualizer.PaintFloorTiles(floor);
+            SCR_WallGen.CreateWalls(floor, tilemapVisualizer);
+            playerAgent.GetComponent<SCR_PlayerAgent>().StartToEndGoalDistance();
 
-        StartCoroutine(GetPossiblePaths(floor, generatePath));
+            StartCoroutine(GetPossiblePaths(floor, generatePath));
+        }
     }
 
     private IEnumerator GetPossiblePaths(HashSet<Vector2Int> floor, bool generatePath)
@@ -93,7 +95,7 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
 
         yield return new WaitForSeconds(0.1f);
         //Debug.Log("Getting possible paths");
-        if(generatePath)
+        if (generatePath)
         {
             playerAgent.GetComponent<SCR_PlayerAgent>().FindPath();
         }
@@ -102,13 +104,13 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
     private HashSet<Vector2Int> CreateRoomsRandomly(List<BoundsInt> roomsList)
     {
         HashSet<Vector2Int> floor = new HashSet<Vector2Int>();
-        for(int i = 0; i < roomsList.Count; i++)
+        for (int i = 0; i < roomsList.Count; i++)
         {
-            var roomBounds = roomsList[i];  
+            var roomBounds = roomsList[i];
             var roomCenter = new Vector2Int(Mathf.RoundToInt(roomBounds.center.x), Mathf.RoundToInt(roomBounds.center.y));
             var roomFloor = RunRandomWalk(randomWalkParameters, roomCenter);
             //Check if each piece of floor is inside the bounds of the room
-            foreach(var position in roomFloor)
+            foreach (var position in roomFloor)
             {
                 if (position.x >= (roomBounds.xMin + offset) && position.x <= (roomBounds.xMax - offset)
                     && position.y >= (roomBounds.yMin - offset) && position.y <= (roomBounds.yMax - offset))
@@ -126,7 +128,7 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
         var currentRoomCenter = roomCenters[Random.Range(0, roomCenters.Count)];
         roomCenters.Remove(currentRoomCenter);
 
-        while(roomCenters.Count > 0)
+        while (roomCenters.Count > 0)
         {
             Vector2Int closest = FindClosestPointTo(currentRoomCenter, roomCenters);
             roomCenters.Remove(closest);
@@ -143,7 +145,7 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
         HashSet<Vector2Int> corridor = new HashSet<Vector2Int>();
         var position = currentRoomCenter;
         corridor.Add(position);
-        while(position.y != destination.y)
+        while (position.y != destination.y)
         {
             if (destination.y > position.y)
             {
@@ -151,13 +153,13 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
             }
             else if (destination.y < position.y)
             {
-                position += Vector2Int.down;    
+                position += Vector2Int.down;
             }
             corridor.Add(position);
         }
-        while(position.x != destination.x)
+        while (position.x != destination.x)
         {
-            if(destination.x > position.x)
+            if (destination.x > position.x)
             {
                 position += Vector2Int.right;
             }
@@ -175,7 +177,7 @@ public class SCR_RoomFirstDungeonGenerator : SCR_RandomWalkDungeonGenerator
     {
         Vector2Int closest = Vector2Int.zero;
         int distance = int.MaxValue;
-        foreach(var position in roomCenters)
+        foreach (var position in roomCenters)
         {
             //distance from one of the room centre positions to the current room centre
             int currentDistance = Mathf.Abs(position.x - currentRoomCenter.x) + Mathf.Abs(position.y - currentRoomCenter.y);

@@ -43,19 +43,19 @@ public class TEST_PCGAglorithms
 
     // A Test behaves as an ordinary method
     [Test]
-    public void RandomWalkCorrectLength_TEST()
+    public void RandomWalkCorrectLength_Test()
     {
         Assert.IsTrue(walkLength + 1 >= randomWalkResult.Count, "Random walk too big");
     }
 
     [Test]
-    public void RandomWalkContainsStartPos_TEST()
+    public void RandomWalkContainsStartPos_Test()
     {
         Assert.IsTrue(randomWalkResult.Contains(startPos), "Start not inside random walk");
     }
 
     [Test]
-    public void BinarySpaceRoomsMeetMinimumRequirements_TEST()
+    public void BinarySpaceRoomsMeetMinimumRequirements_Test()
     {
         foreach (var room in roomList)
         {
@@ -65,7 +65,7 @@ public class TEST_PCGAglorithms
     }
 
     [Test]
-    public void BinarySpaceRoomsNotBeSplitBeyondMinimum_TEST()
+    public void BinarySpaceRoomsNotBeSplitBeyondMinimum_Test()
     {
         BoundsInt underMinimumBounds = new BoundsInt((Vector3Int)startPos, new Vector3Int(underMinWidth, underMinHeight, 0));
         roomList = SCR_PCGAlgorithms.BinarySpacePartitioning(underMinimumBounds, minRoomWidth, minRoomHeight);

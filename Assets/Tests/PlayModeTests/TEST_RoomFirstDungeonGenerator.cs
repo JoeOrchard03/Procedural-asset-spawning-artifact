@@ -10,23 +10,33 @@ public class TEST_RoomFirstDungeonGenerator
 {
     private SCR_RoomFirstDungeonGenerator scriptTestInstance;
     private SCR_RandomWalkSO randomWalkParams;
+    private SCR_TilemapVisualizer tilemapVisualiserInstance;
 
     [SetUp]
     public void SetUp()
     {
         GameObject testOBJ = new GameObject();
-        testOBJ.AddComponent<SCR_RoomFirstDungeonGenerator>();
-        scriptTestInstance = testOBJ.GetComponent<SCR_RoomFirstDungeonGenerator>();
+        scriptTestInstance = testOBJ.AddComponent<SCR_RoomFirstDungeonGenerator>();
         randomWalkParams = Resources.Load<SCR_RandomWalkSO>("RandomWalkParams_Defaults");
         scriptTestInstance.randomWalkParameters = randomWalkParams;
+        tilemapVisualiserInstance = new GameObject().AddComponent<SCR_TilemapVisualizer>(); 
     }
 
     [UnityTest]
-    public IEnumerator TEST_RoomFirstDungeonGeneratorWithEnumeratorPasses()
+    public IEnumerator RoomFirstDungeonGeneratorWithRandomWalkPasses_Test()
     {
-        //scriptTestInstance.randomWalkRooms = true;
-        //scriptTestInstance.CreateRooms();
-        //Assert.IsNotNull(scriptTestInstance.tilemapVisualizer, "TilemapVisualizer is null!");
+        scriptTestInstance.randomWalkRooms = true;
+        scriptTestInstance.CreateRooms(false);
+        Assert.IsNotNull(tilemapVisualiserInstance, "TilemapVisualizer is null!");
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator RoomFirstDungeonGeneratorWithoutRandomWalkPasses_Test()
+    {
+        scriptTestInstance.randomWalkRooms = false;
+        scriptTestInstance.CreateRooms(false);
+        Assert.IsNotNull(tilemapVisualiserInstance, "TilemapVisualizer is null!");
         yield return null;
     }
 }
