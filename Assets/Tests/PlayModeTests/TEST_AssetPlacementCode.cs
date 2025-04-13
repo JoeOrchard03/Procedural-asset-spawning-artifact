@@ -24,19 +24,37 @@ public class TEST_AssetPlacementCode
         placementScriptInstance.assetPlaceHolder = Resources.Load<GameObject>("Asset place holder");
     }
 
+    public GameObject createTileWithPathNodeComponent(string gameObjectName = "Tile")
+    {
+        GameObject tile = new GameObject(gameObjectName);
+        tile.AddComponent<SCR_PossiblePathNode>();
+        return tile;
+    }
+
+    public void setPassRandomCheckVars()
+    {
+        placementScriptInstance.minimumRandomSpawnNumber = 0;
+        placementScriptInstance.maximumRandomSpawnNumber = 1;
+        placementScriptInstance.randomSpawnNumber = 1;
+    }
+
+    public void setFailRandomCheckVars()
+    {
+        placementScriptInstance.minimumRandomSpawnNumber = 5;
+        placementScriptInstance.maximumRandomSpawnNumber = 10;
+        placementScriptInstance.randomSpawnNumber = 2;
+    }
+
     [TestFixture]
     public class SpawnFunctionality : TEST_AssetPlacementCode
     {
         [UnityTest]
         public IEnumerator RandomSpawnSpawningWhenGuranteed_Test()
         {
-            var tile = new GameObject("Tile");
-            tile.AddComponent<SCR_PossiblePathNode>();
+            GameObject tile = createTileWithPathNodeComponent();
 
             //These values gurantee that assets will spawn if the method is working correctly
-            placementScriptInstance.minimumRandomSpawnNumber = 0;
-            placementScriptInstance.maximumRandomSpawnNumber = 1;
-            placementScriptInstance.randomSpawnNumber = 1;
+            setPassRandomCheckVars();
 
             placementScriptInstance.assetPlaceHolder = new GameObject("Asset");
 
@@ -51,13 +69,10 @@ public class TEST_AssetPlacementCode
         [UnityTest]
         public IEnumerator RandomSpawnNotSpawningWhenGuranteedToFail_Test()
         {
-            var tile = new GameObject("Tile");
-            tile.AddComponent<SCR_PossiblePathNode>();
+            GameObject tile = createTileWithPathNodeComponent();
 
             //These values gurantee that assets will not spawn if the method is working correctly
-            placementScriptInstance.minimumRandomSpawnNumber = 5;
-            placementScriptInstance.maximumRandomSpawnNumber = 10;
-            placementScriptInstance.randomSpawnNumber = 2;
+            setFailRandomCheckVars();
 
             placementScriptInstance.assetPlaceHolder = new GameObject("Asset");
 
@@ -72,13 +87,10 @@ public class TEST_AssetPlacementCode
         public IEnumerator AssetNotSpawnOnDoor_Test()
         {
             //Tile has "Door" in it's name therefore should not spawn if method working correctly
-            var tile = new GameObject("DoorTile");
-            tile.AddComponent<SCR_PossiblePathNode>();
+            GameObject tile = createTileWithPathNodeComponent("DoorTile");
 
             //These values gurantee that assets will pass the random chance check
-            placementScriptInstance.minimumRandomSpawnNumber = 0;
-            placementScriptInstance.maximumRandomSpawnNumber = 1;
-            placementScriptInstance.randomSpawnNumber = 1;
+            setPassRandomCheckVars();
 
             placementScriptInstance.assetPlaceHolder = new GameObject("Asset");
 
@@ -93,12 +105,11 @@ public class TEST_AssetPlacementCode
         [UnityTest]
         public IEnumerator AssetSpawns_Test()
         {
-            var tile = new GameObject("Tile");
-            tile.AddComponent<SCR_PossiblePathNode>();
+            GameObject tile = createTileWithPathNodeComponent();
 
             placementScriptInstance.SpawnAsset(tile);
 
-            Assert.AreEqual(1, tile.transform.childCount, "Asset has mot spawned, supposed to");
+            Assert.AreEqual(1, tile.transform.childCount, "Asset has not spawned, supposed to");
 
             yield return null;
         }
