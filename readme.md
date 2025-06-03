@@ -1,3 +1,5 @@
+Please see Automatic asset placement paper.pdf in the root folder to view my dissertation in pdf form
+
 ### Computing artifact for asset placement through procedurally generated levels
 
 The artifact's current state is that it supports level generation using procedural generation, more specifcally utilizing the binary space partitoning algorithm to generate rooms, corridors are then created by mapping the centre of these rooms and connecting them.
